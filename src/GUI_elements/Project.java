@@ -1,29 +1,37 @@
 package GUI_elements;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Management_GUI {
+public class Project extends JFrame{
     private JButton addproject_btn;
     private JButton editproject_btn;
     private JButton deleteproject_btn;
-    private JList list_teammanipulation;
-    private JTextField txt_details;
-    private JTextField txt_timeallocated;
-    private JTextField txt_assignedto;
-    private JTextField txt_task;
-    private JLabel ptablemanipulation_lbl;
-    private JLabel pteammanipulation_lbl;
-    private JLabel lbl_timeallocated;
-    private JLabel lbl_details;
-    private JLabel lbl_assignedto;
-    private JLabel lbl_task;
-    private JPanel projectPanel;
+    private JTextField txt_startdate;
+    private JTextField txt_projectduration;
+    private JTextField txt_projectdescription;
+    private JTextField txt_projectname;
+    private JLabel projectconfiguration_lbl;
+    private JLabel lbl_projectduration;
+    private JLabel lbl_startdate;
+    private JLabel lbl_description;
+    private JLabel lbl_projectname;
+    public JPanel projectPanel;
 
-    public Management_GUI() {
+
+    //Launches the Application
+    public static void main(String[] args) {
+        JFrame projectframe = new JFrame("Project");
+        projectframe.setContentPane(new Project().projectPanel);
+        //frame1.setSize(700, 600);
+        projectframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        projectframe.pack();
+        projectframe.setVisible(true);
+    }
+
+
+    public Project() {
         addproject_btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -42,31 +50,25 @@ public class Management_GUI {
 
             }
         });
-        list_teammanipulation.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent listSelectionEvent) {
-
-            }
-        });
-        txt_task.addActionListener(new ActionListener() {
+        txt_projectname.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
             }
         });
-        txt_assignedto.addActionListener(new ActionListener() {
+        txt_projectdescription.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
             }
         });
-        txt_details.addActionListener(new ActionListener() {
+        txt_startdate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
             }
         });
-        txt_timeallocated.addActionListener(new ActionListener() {
+        txt_projectduration.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 

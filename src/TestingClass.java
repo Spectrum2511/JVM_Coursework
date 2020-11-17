@@ -36,6 +36,9 @@ public class TestingClass {
         //warnWindow warning = new warnWindow("Warning: this is a warning");
 
         //JFrame j = new JVM();
+
 */
+        JVM GUI = new JVM();
+        //frame.setSize(700, 600);
     }
 }
