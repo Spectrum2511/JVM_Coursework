@@ -1,4 +1,4 @@
-import classes.Project;
+import classes.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -61,6 +61,10 @@ public class programHandler {
             String Proj_data[] = {"p", j.getProjName(), j.getProjNote(), j.getStartDate().toString(), String.valueOf(j.getProjDuration())};
             for (int c = 0; c < Proj_data.length; c++){
                 csvWriter.append(Proj_data[c] + ", ");
+            }
+            for (int c = 0; c < j.getProjectTasks().size(); c++){
+                Task t = j.getProjectTasks().get(c);
+                String task_data[] = {"t", }
             }
             csvWriter.append("\n");
         }

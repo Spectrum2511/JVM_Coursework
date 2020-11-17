@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Project extends JFrame{
+public class Project_inp extends JFrame{
     private JButton addproject_btn;
     private JButton editproject_btn;
     private JButton deleteproject_btn;
@@ -23,7 +23,7 @@ public class Project extends JFrame{
     //Launches the Application
     public static void main(String[] args) {
         JFrame projectframe = new JFrame("Project");
-        projectframe.setContentPane(new Project().projectPanel);
+        projectframe.setContentPane(new Project_inp().projectPanel);
         //frame1.setSize(700, 600);
         projectframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         projectframe.pack();
@@ -31,7 +31,7 @@ public class Project extends JFrame{
     }
 
 
-    public Project() {
+    public Project_inp() {
         addproject_btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {

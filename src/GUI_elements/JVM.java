@@ -1,5 +1,4 @@
 package GUI_elements;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -65,8 +64,8 @@ public class JVM extends JPanel{
         btn_addproject.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Project Project = new Project();
-                Project.setContentPane(new Project().projectPanel);
+                Project_inp Project = new Project_inp();
+                Project.setContentPane(new Project_inp().projectPanel);
                 Project.pack();
                 Project.setVisible(true);
             }
@@ -75,8 +74,8 @@ public class JVM extends JPanel{
         btn_addtask.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Task Task = new Task();
-                Task.setContentPane(new Task().taskPanel);
+                Task_inp Task = new Task_inp();
+                Task.setContentPane(new Task_inp().taskPanel);
                 Task.pack();
                 Task.setVisible(true);
             }
@@ -85,8 +84,8 @@ public class JVM extends JPanel{
         btn_assignteams.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Team Team = new Team();
-                Team.setContentPane(new Team().teamPanel);
+                Team_inp Team = new Team_inp();
+                Team.setContentPane(new Team_inp().teamPanel);
                 Team.pack();
                 Team.setVisible(true);
             }
