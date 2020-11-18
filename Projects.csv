@@ -1,7 +1,7 @@
-p, proj1, aaaaaaaaaaaaa, 2020-11-12, 100
-t, Create Gui, proj1, 20, team a
-t, Test GUI, proj1, 20, team a
-p, proj2, bbbbbbbbbbbbb, 2020-12-14, 50
-t, Decode project, proj2, 1, null
-t, finalise proj, proj2, 20, null
-p, proj3, cccccccccccccccc, 2020-12-25, 365
+p,proj1,aaaaaaaaaaaaa,2020-11-12,100
+t,Create Gui,proj1,20,team a
+t,Test GUI,proj1,20,team a
+p,proj2,bbbbbbbbbbbbb,2020-12-14,50
+t,Decode project,proj2,1,null
+t,finalise proj,proj2,20,null
+p,proj3,cccccccccccccccc,2020-12-25,365

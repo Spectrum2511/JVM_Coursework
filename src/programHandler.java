@@ -1,7 +1,7 @@
 import classes.*;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class programHandler {
@@ -30,9 +30,11 @@ public class programHandler {
         handler.getProjOfName("proj2").addTask("Decode project", 01);
         handler.getProjOfName("proj2").addTask("finalise proj", 20);
         handler.CreateProject("proj3", "cccccccccccccccc","2020-12-25",365);
-
         handler.getProjOfName("proj1").displayTaskData();
+
+        //loadInstances();
         saveInstances();
+        System.out.println("=========END TEST==========");
     }
 
     public static programHandler getInstance( ) {
@@ -64,7 +66,7 @@ public class programHandler {
             String Proj_data[] = {"p", j.getProjName(), j.getProjNote(), j.getStartDate().toString(),
                     String.valueOf(j.getProjDuration())};
             for (int c = 0; c < Proj_data.length -1; c++){
-                csvWriter.append(Proj_data[c] + ", ");
+                csvWriter.append(Proj_data[c] + ",");
             }
             csvWriter.append(Proj_data[Proj_data.length -1]);
             csvWriter.append("\n");
@@ -73,7 +75,7 @@ public class programHandler {
                 String task_data[] = {"t", t.getTaskDesc(), t.getAssignedProj().getProjName(),
                         String.valueOf(t.getDuration()), t.getAssignedTeam().getTeamName()};
                 for (int c = 0; c < task_data.length -1; c++){
-                    csvWriter.append(task_data[c] + ", ");
+                    csvWriter.append(task_data[c] + ",");
                 }
                 csvWriter.append(task_data[task_data.length -1]);
                 csvWriter.append("\n");
@@ -81,6 +83,33 @@ public class programHandler {
         }
         csvWriter.flush();
         csvWriter.close();
+    }
+
+    public static void loadInstances() throws IOException {
+        File csvFile = new File("Projects.csv");
+        if (csvFile.isFile()) {
+            BufferedReader csvReader = new BufferedReader(new FileReader("Projects.csv"));
+            String row = "";
+            while ((row = csvReader.readLine()) != null) {
+                String[] data = row.split(",");
+                if (data[0].equals("p")){
+                    instance.CreateProject(data[1],data[2],data[3],Integer.parseInt(data[4]));
+                }
+                if(data[0].equals("t")){
+                    instance.currentProject.addTask(data[1],Integer.parseInt(data[3]));
+                }
+            }
+            csvReader.close();
+
+
+
+
+
+        } else{
+
+        }
+
+
     }
 
 
