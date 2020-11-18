@@ -9,7 +9,8 @@ public class programHandler {
     private static programHandler instance = new programHandler();
     public static ArrayList<Project> projects;
     public Project currentProject;
-    private static final String filepath="C:\\Users\\Sean Daly\\Google Drive\\Uni Stuff\\Year 3\\Term 1\\COMP1815- JVM Programming Languages\\Coursework\\src\\classes";
+    private static final String filepath="C:\\Users\\Sean Daly\\Google Drive\\Uni Stuff\\Year 3" +
+            "\\Term 1\\COMP1815- JVM Programming Languages\\Coursework\\src\\classes";
 
     private programHandler() {
         projects = new ArrayList<>();
@@ -27,6 +28,8 @@ public class programHandler {
         handler.getProjOfName("proj1").AssignTeamToTask("team a", "Test GUI");
         handler.getProjOfName("proj1").AssignTeamToTask("team a", "Create Gui");
         handler.getProjOfName("proj2").addTask("Decode project", 01);
+        handler.getProjOfName("proj2").addTask("finalise proj", 20);
+        handler.CreateProject("proj3", "cccccccccccccccc","2020-12-25",365);
 
         handler.getProjOfName("proj1").displayTaskData();
         saveInstances();
@@ -58,23 +61,24 @@ public class programHandler {
         FileWriter csvWriter = new FileWriter("Projects.csv");
         for (int i = 0; i < instance.projects.size(); i++){
             Project j = instance.projects.get(i);
-            String Proj_data[] = {"p", j.getProjName(), j.getProjNote(), j.getStartDate().toString(), String.valueOf(j.getProjDuration())};
-            for (int c = 0; c < Proj_data.length; c++){
+            String Proj_data[] = {"p", j.getProjName(), j.getProjNote(), j.getStartDate().toString(),
+                    String.valueOf(j.getProjDuration())};
+            for (int c = 0; c < Proj_data.length -1; c++){
                 csvWriter.append(Proj_data[c] + ", ");
             }
-            for (int c = 0; c < j.getProjectTasks().size(); c++){
-                Task t = j.getProjectTasks().get(c);
-                String task_data[] = {"t", }
-            }
+            csvWriter.append(Proj_data[Proj_data.length -1]);
             csvWriter.append("\n");
+            for (int h = 0; h < j.getProjectTasks().size(); h++){
+                Task t = j.getProjectTasks().get(h);
+                String task_data[] = {"t", t.getTaskDesc(), t.getAssignedProj().getProjName(),
+                        String.valueOf(t.getDuration()), t.getAssignedTeam().getTeamName()};
+                for (int c = 0; c < task_data.length -1; c++){
+                    csvWriter.append(task_data[c] + ", ");
+                }
+                csvWriter.append(task_data[task_data.length -1]);
+                csvWriter.append("\n");
+            }
         }
-
-
-
-
-
-
-
         csvWriter.flush();
         csvWriter.close();
     }

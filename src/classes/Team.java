@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Team {
     private String TeamName;
     private String TeamDescription;
-    private ArrayList<Task> teamTasks = new ArrayList<>();
+    private ArrayList<Task> teamTasks;
     private int IDnumb;
 
     public Team(String name, String desc, int n){
@@ -16,9 +16,21 @@ public class Team {
         }
         TeamDescription = desc;
         IDnumb = n;
+        teamTasks = new ArrayList<>();
     }
+
+    public Team(String name){
+        if (name == "N/A"){
+            TeamName = "N/A";
+        }
+    }
+
     public String getTeamName(){
-        return TeamName;
+        if(TeamName == "N/A"){
+            return "null";
+        } else{
+            return TeamName;
+        }
     }
 
     public void assignTask(Task tk){

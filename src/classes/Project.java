@@ -15,6 +15,7 @@ public class Project implements Serializable {
     private LocalDate StartDate;
     private int ProjDuration;
     private Task CurrentTask;
+    public Team nonAssigned = new Team("N/A");
 
     //constructor
     public Project(String name, String note, String startdate, int dur){

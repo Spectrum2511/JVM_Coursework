@@ -16,14 +16,14 @@ public class Task {
 
     private Task prevTask;
     private boolean isCompleted = false;
-    private Team assignedTeam = null;
+    private Team assignedTeam;
 
 
     public Task(String desc, Project p, int d){
         TaskDesc = desc;
         AssignedProj = p;
         Duration = d;
-
+        assignedTeam = AssignedProj.nonAssigned;
     }
 
     public void checkPosition(){
@@ -52,6 +52,7 @@ public class Task {
             startDate = prevTask.startDate.plusDays(prevTask.Duration);
         }
     }
+
     public String getTaskDesc(){
         return TaskDesc;
     }
@@ -66,9 +67,11 @@ public class Task {
         }
         return nextTask;
     }
+
     public Boolean getIsCompleted(){
         return isCompleted;
     }
+
     public void setTaskComplete(){
         isCompleted = true;
     }
@@ -84,4 +87,8 @@ public class Task {
         assignedTeam = a;
     }
     public Team getAssignedTeam(){ return assignedTeam;}
+
+    public Project getAssignedProj() { return AssignedProj; }
+
+    public int getDuration(){ return Duration; }
 }
