@@ -20,13 +20,13 @@ public class Team {
     }
 
     public Team(String name){
-        if (name == "N/A"){
+        if (name.equals("N/A")){
             TeamName = "N/A";
         }
     }
 
     public String getTeamName(){
-        if(TeamName == "N/A"){
+        if(TeamName.equals("N/A")){
             return "null";
         } else{
             return TeamName;

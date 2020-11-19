@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class programHandler {
 
-    private static programHandler instance = new programHandler();
+    private static final programHandler instance = new programHandler();
     public static ArrayList<Project> projects;
     public Project currentProject;
     private static final String filepath="C:\\Users\\Sean Daly\\Google Drive\\Uni Stuff\\Year 3" +
@@ -50,9 +50,9 @@ public class programHandler {
 
     public Project getProjOfName(String name){
         Project a = null;
-        for (int i =0; i < projects.size(); i++){
-            if (projects.get(i).getProjName() == name){
-                a = projects.get(i);
+        for (Project project : projects) {
+            if (project.getProjName().equals(name)) {
+                a = project;
                 break;
             }
         }
@@ -61,23 +61,22 @@ public class programHandler {
 
     public static void saveInstances() throws IOException {
         FileWriter csvWriter = new FileWriter("Projects.csv");
-        for (int i = 0; i < instance.projects.size(); i++){
-            Project j = instance.projects.get(i);
-            String Proj_data[] = {"p", j.getProjName(), j.getProjNote(), j.getStartDate().toString(),
+        for (Project j : projects) {
+            String[] Proj_data = {"p", j.getProjName(), j.getProjNote(), j.getStartDate().toString(),
                     String.valueOf(j.getProjDuration())};
-            for (int c = 0; c < Proj_data.length -1; c++){
-                csvWriter.append(Proj_data[c] + ",");
+            for (int c = 0; c < Proj_data.length - 1; c++) {
+                csvWriter.append(Proj_data[c]).append(",");
             }
-            csvWriter.append(Proj_data[Proj_data.length -1]);
+            csvWriter.append(Proj_data[Proj_data.length - 1]);
             csvWriter.append("\n");
-            for (int h = 0; h < j.getProjectTasks().size(); h++){
+            for (int h = 0; h < j.getProjectTasks().size(); h++) {
                 Task t = j.getProjectTasks().get(h);
-                String task_data[] = {"t", t.getTaskDesc(), t.getAssignedProj().getProjName(),
+                String[] task_data = {"t", t.getTaskDesc(), t.getAssignedProj().getProjName(),
                         String.valueOf(t.getDuration()), t.getAssignedTeam().getTeamName()};
-                for (int c = 0; c < task_data.length -1; c++){
-                    csvWriter.append(task_data[c] + ",");
+                for (int c = 0; c < task_data.length - 1; c++) {
+                    csvWriter.append(task_data[c]).append(",");
                 }
-                csvWriter.append(task_data[task_data.length -1]);
+                csvWriter.append(task_data[task_data.length - 1]);
                 csvWriter.append("\n");
             }
         }
@@ -89,7 +88,7 @@ public class programHandler {
         File csvFile = new File("Projects.csv");
         if (csvFile.isFile()) {
             BufferedReader csvReader = new BufferedReader(new FileReader("Projects.csv"));
-            String row = "";
+            String row;
             while ((row = csvReader.readLine()) != null) {
                 String[] data = row.split(",");
                 if (data[0].equals("p")){
@@ -104,8 +103,6 @@ public class programHandler {
 
 
 
-
-        } else{
 
         }
 

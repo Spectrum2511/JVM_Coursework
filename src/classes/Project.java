@@ -13,7 +13,6 @@ public class Project implements Serializable {
     private ArrayList<Task> ProjectTasks = new ArrayList<>();
     private ArrayList<Team> ProjectTeams = new ArrayList<>();
     private LocalDate StartDate;
-    private LocalDate expdEndDate;
     private int ProjDuration;
     private Task CurrentTask;
     public Team nonAssigned = new Team("N/A");
@@ -23,7 +22,7 @@ public class Project implements Serializable {
         projName = name;
         projNote = note;
         StartDate = LocalDate.parse(startdate);
-        expdEndDate = getStartDate().plusDays(ProjDuration);
+        LocalDate expdEndDate = getStartDate().plusDays(ProjDuration);
         ProjDuration = dur;
     }
 
@@ -38,10 +37,10 @@ public class Project implements Serializable {
     }
 
     public void findCurrentTask(Project this){
-        for(int i = 0; i < this.ProjectTasks.size(); i++){
-            Boolean check = this.ProjectTasks.get(i).getIsCompleted();
-            if (check == false){
-                this.CurrentTask = this.ProjectTasks.get(i);
+        for (Task projectTask : this.ProjectTasks) {
+            Boolean check = projectTask.getIsCompleted();
+            if (!check) {
+                this.CurrentTask = projectTask;
                 break;
             }
         }
@@ -65,9 +64,9 @@ public class Project implements Serializable {
 
     public Team getTeamOfName(String name){
         Team a = null;
-        for (int i =0; i < ProjectTeams.size(); i++){
-            if (ProjectTeams.get(i).getTeamName() == name){
-                a = ProjectTeams.get(i);
+        for (Team projectTeam : ProjectTeams) {
+            if (projectTeam.getTeamName().equals(name)) {
+                a = projectTeam;
                 break;
             }
         }
@@ -76,9 +75,9 @@ public class Project implements Serializable {
 
     public Task getTaskOfDescription(String description){
         Task a = null;
-        for (int i =0; i < ProjectTasks.size(); i++){
-            if (ProjectTasks.get(i).getTaskDesc().equals(description)){
-                a = ProjectTasks.get(i);
+        for (Task projectTask : ProjectTasks) {
+            if (projectTask.getTaskDesc().equals(description)) {
+                a = projectTask;
                 break;
             }
         }

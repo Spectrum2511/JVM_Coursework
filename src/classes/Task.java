@@ -9,35 +9,31 @@ public class Task {
     private Project AssignedProj;
     private int Duration;
     private LocalDate startDate;
-    private String predecesors;
     private boolean isFirst;
     private boolean isLast;
     private ArrayList<Task> nextTask = new ArrayList<>();
-    private int thisIndex;
-
     private ArrayList<Task> prevTask = new ArrayList<>();
     private boolean isCompleted = false;
     private Team assignedTeam;
 
 
     public Task(String desc, Project p, int d, String addTo){
-        predecesors = addTo;
         TaskDesc = desc;
         AssignedProj = p;
         Duration = d;
         assignedTeam = AssignedProj.nonAssigned;
-        if (addTo.equals("") == false){
+        if (!addTo.equals("")){
             String[] nodes = addTo.split(",");
-            for (int i = 0; i < nodes.length ; i++){
-                AssignedProj.getTaskOfDescription(nodes[i]).getNextTasks().add(this);
-                this.getPrevTasks().add(AssignedProj.getTaskOfDescription(nodes[i]));
+            for (String node : nodes) {
+                AssignedProj.getTaskOfDescription(node).getNextTasks().add(this);
+                this.getPrevTasks().add(AssignedProj.getTaskOfDescription(node));
             }
         }
     }
 
     public void checkPosition(){
         ArrayList<Task> otherJobs = AssignedProj.getProjectTasks();
-        thisIndex = otherJobs.indexOf(this);
+        int thisIndex = otherJobs.indexOf(this);
         if((thisIndex == 0) && (prevTask.isEmpty())) {
             isFirst = true;
             isLast = false;
