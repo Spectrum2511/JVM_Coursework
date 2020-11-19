@@ -13,6 +13,7 @@ public class Project implements Serializable {
     private ArrayList<Task> ProjectTasks = new ArrayList<>();
     private ArrayList<Team> ProjectTeams = new ArrayList<>();
     private LocalDate StartDate;
+    private LocalDate expdEndDate;
     private int ProjDuration;
     private Task CurrentTask;
     public Team nonAssigned = new Team("N/A");
@@ -22,11 +23,12 @@ public class Project implements Serializable {
         projName = name;
         projNote = note;
         StartDate = LocalDate.parse(startdate);
+        expdEndDate = getStartDate().plusDays(ProjDuration);
         ProjDuration = dur;
     }
 
-    public void addTask(String desc, int d){
-        Task tmp = new Task(desc, Project.this, d);
+    public void addTask(String desc, int d, String addTo){
+        Task tmp = new Task(desc, this, d, addTo);
         this.ProjectTasks.add(tmp);
         tmp.checkPosition();
         for (int i =0; i < this.ProjectTasks.size()-1; i++){
@@ -75,7 +77,7 @@ public class Project implements Serializable {
     public Task getTaskOfDescription(String description){
         Task a = null;
         for (int i =0; i < ProjectTasks.size(); i++){
-            if (ProjectTasks.get(i).getTaskDesc() == description){
+            if (ProjectTasks.get(i).getTaskDesc().equals(description)){
                 a = ProjectTasks.get(i);
                 break;
             }
@@ -87,12 +89,6 @@ public class Project implements Serializable {
         return ProjectTasks;
     }
 
-    public void displayTaskData(){
-        for (int i =0; i < ProjectTasks.size(); i++){
-            Task tmp = ProjectTasks.get(i);
-            System.out.println("Description: " + tmp +", "+ tmp.getTaskDesc()+ ", Assigned to: " + tmp.getAssignedTeam().getTeamName() + ", Start Date: " + tmp.getStartDate());
-        }
-    }
 
     public String getProjName(){
         return projName;

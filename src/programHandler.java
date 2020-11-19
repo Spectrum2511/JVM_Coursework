@@ -17,7 +17,7 @@ public class programHandler {
         currentProject = null;
     }
 
-    public static void main(String args[]) throws IOException {
+   /* public static void main(String args[]) throws IOException {
         programHandler handler = getInstance();
 
         handler.CreateProject("proj1", "aaaaaaaaaaaaa", "2020-11-12", 100);
@@ -36,7 +36,7 @@ public class programHandler {
         saveInstances();
         System.out.println("=========END TEST==========");
     }
-
+*/
     public static programHandler getInstance( ) {
         return instance;
     }
@@ -96,7 +96,7 @@ public class programHandler {
                     instance.CreateProject(data[1],data[2],data[3],Integer.parseInt(data[4]));
                 }
                 if(data[0].equals("t")){
-                    instance.currentProject.addTask(data[1],Integer.parseInt(data[3]));
+                    //instance.currentProject.addTask(data[1],Integer.parseInt(data[3]));
                 }
             }
             csvReader.close();

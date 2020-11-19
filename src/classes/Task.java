@@ -9,47 +9,57 @@ public class Task {
     private Project AssignedProj;
     private int Duration;
     private LocalDate startDate;
+    private String predecesors;
     private boolean isFirst;
     private boolean isLast;
-    private Task nextTask;
+    private ArrayList<Task> nextTask = new ArrayList<>();
     private int thisIndex;
 
-    private Task prevTask;
+    private ArrayList<Task> prevTask = new ArrayList<>();
     private boolean isCompleted = false;
     private Team assignedTeam;
 
 
-    public Task(String desc, Project p, int d){
+    public Task(String desc, Project p, int d, String addTo){
+        predecesors = addTo;
         TaskDesc = desc;
         AssignedProj = p;
         Duration = d;
         assignedTeam = AssignedProj.nonAssigned;
+        if (addTo.equals("") == false){
+            String[] nodes = addTo.split(",");
+            for (int i = 0; i < nodes.length ; i++){
+                AssignedProj.getTaskOfDescription(nodes[i]).getNextTasks().add(this);
+                this.getPrevTasks().add(AssignedProj.getTaskOfDescription(nodes[i]));
+            }
+        }
     }
 
     public void checkPosition(){
         ArrayList<Task> otherJobs = AssignedProj.getProjectTasks();
         thisIndex = otherJobs.indexOf(this);
-        if(thisIndex == 0) {
+        if((thisIndex == 0) && (prevTask.isEmpty())) {
             isFirst = true;
             isLast = false;
             startDate = AssignedProj.getStartDate();
-            prevTask = null;
-            if (otherJobs.size() > 1){
-                nextTask = otherJobs.get(thisIndex + 1);
-            } else{
-                nextTask = null;
-            }
         }
-        if (thisIndex + 1 == otherJobs.size() && otherJobs.size() > 1){
+        if ((thisIndex + 1 == otherJobs.size() && otherJobs.size() > 1)&&(nextTask.isEmpty())){
             isLast = true;
             isFirst = false;
-            prevTask = otherJobs.get(thisIndex - 1);
-            startDate = prevTask.startDate.plusDays(prevTask.Duration);
-            nextTask = null;
+            LocalDate max = LocalDate.parse("1111-11-11");
+            for (int i = 0; i < prevTask.size(); i++){
+                LocalDate c = this.getPrevTasks().get(i).startDate.plusDays(this.getPrevTasks().get(i).getDuration());
+                if (c.compareTo(max) > 0)
+                        max = c;
+            }
+            startDate = max;
         } else if (otherJobs.size() > 1 && thisIndex !=0 && thisIndex != otherJobs.size()-1){
-            prevTask = otherJobs.get(thisIndex - 1);
-            nextTask = otherJobs.get(thisIndex + 1);
-            startDate = prevTask.startDate.plusDays(prevTask.Duration);
+            LocalDate max = LocalDate.parse("1111-11-11");
+            for (int i = 0; i < prevTask.size(); i++){
+                LocalDate c = this.getPrevTasks().get(i).startDate.plusDays(this.getPrevTasks().get(i).getDuration());
+                if (c.compareTo(max) > 0)
+                    max = c;
+            }
         }
     }
 
@@ -61,10 +71,7 @@ public class Task {
         return startDate;
     }
 
-    public Task getNextTask(){
-        if (isLast){
-            System.out.println("last task");
-        }
+    public ArrayList<Task> getNextTasks(){
         return nextTask;
     }
 
@@ -76,10 +83,7 @@ public class Task {
         isCompleted = true;
     }
 
-    public Task getPrevTask(){
-        if (isFirst){
-            System.out.println("first task");
-        }
+    public ArrayList<Task> getPrevTasks(){
         return prevTask;
     }
 
