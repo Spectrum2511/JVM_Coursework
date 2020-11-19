@@ -1,4 +1,5 @@
 package GUI_elements;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -6,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class JVM extends JPanel{
+public class JVM extends JFrame {
     private JFrame mainframe = new JFrame("JVM");
     private JButton btn_addproject;
     private JButton btn_addtask;
@@ -15,14 +16,15 @@ public class JVM extends JPanel{
     private JLabel lbl_projecttasks;
     private JTable table_project;
     private JTextArea textArea_details;
-    private JPanel tablePanel;
-    public JPanel mainPanel;
+    private JPanel mainPanel;
     private JToolBar topToolBar;
     private JLabel lbl_projecttabletitle;
+    private JButton savebtn;
+    private JComboBox Projectcbx;
 
     public class JVMTable {
 
-        private JVMTable() {
+        public JVMTable() {
 
             DefaultTableModel model = new DefaultTableModel();
 
@@ -39,33 +41,26 @@ public class JVM extends JPanel{
         }
     }
 
-
         //Launches the Application
     public static void main(String[] args) {
-        /*
-        JFrame mainframe = new JFrame("JVM");
-        mainframe.setContentPane(new JVM().mainPanel);
-        //frame.setSize(700, 600);
-        mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainframe.pack();
-        mainframe.setVisible(true);
-*/
-    }
+
+   }
 
 
     //Creates the functions
     public JVM() {
-        mainframe.setContentPane(this.mainPanel);
+
+        mainframe.setContentPane(mainPanel);
+        //mainframe.setSize(700, 600);
         mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainframe.pack();
         mainframe.setVisible(true);
 
         btn_addproject.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Project_inp Project = new Project_inp();
-                Project.setContentPane(new Project_inp().projectPanel);
+                Project_g Project = new Project_g();
+                Project.setContentPane(new Project_g().projectPanel);
                 Project.pack();
                 Project.setVisible(true);
             }
@@ -74,8 +69,8 @@ public class JVM extends JPanel{
         btn_addtask.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Task_inp Task = new Task_inp();
-                Task.setContentPane(new Task_inp().taskPanel);
+                Task_g Task = new Task_g();
+                Task.setContentPane(new Task_g().taskPanel);
                 Task.pack();
                 Task.setVisible(true);
             }
@@ -84,8 +79,8 @@ public class JVM extends JPanel{
         btn_assignteams.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Team_inp Team = new Team_inp();
-                Team.setContentPane(new Team_inp().teamPanel);
+                Team_g Team = new Team_g();
+                Team.setContentPane(new Team_g().teamPanel);
                 Team.pack();
                 Team.setVisible(true);
             }
@@ -101,8 +96,23 @@ public class JVM extends JPanel{
         table_project.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+               // model.insertRow(model.getRowCount(), new Object[]{})
                 //JVMTable JVMTable = new JVMTable();
                 //JVMTable = (DefaultTableModel)table_project.getModel();
+
+            }
+        });
+
+        savebtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        Projectcbx.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
             }
         });

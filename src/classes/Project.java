@@ -35,6 +35,11 @@ public class Project implements Serializable {
         }
     }
 
+    public void createTeam(String name, String desc, int n){
+        Team tmp = new Team(name, desc, n);
+        this.ProjectTeams.add(tmp);
+    }
+
     public void findCurrentTask(Project this){
         for(int i = 0; i < this.ProjectTasks.size(); i++){
             Boolean check = this.ProjectTasks.get(i).getIsCompleted();
@@ -43,11 +48,6 @@ public class Project implements Serializable {
                 break;
             }
         }
-    }
-
-    public void createTeam(String name, String desc, int n){
-        Team tmp = new Team(name, desc, n);
-        this.ProjectTeams.add(tmp);
     }
 
     public void AssignTeamToTask(String team, String task){
@@ -63,9 +63,9 @@ public class Project implements Serializable {
 
     public Team getTeamOfName(String name){
         Team a = null;
-        for (int i =0; i < ProjectTeams.size(); i++){
-            if (ProjectTeams.get(i).getTeamName() == name){
-                a = ProjectTeams.get(i);
+        for (int i =0; i < this.ProjectTeams.size(); i++){
+            if (this.ProjectTeams.get(i).getTeamName().equals(name)){
+                a = this.ProjectTeams.get(i);
                 break;
             }
         }
@@ -83,10 +83,6 @@ public class Project implements Serializable {
         return a;
     }
 
-    public ArrayList<Task> getProjectTasks(){
-        return ProjectTasks;
-    }
-
     public void displayTaskData(){
         for (int i =0; i < ProjectTasks.size(); i++){
             Task tmp = ProjectTasks.get(i);
@@ -94,17 +90,7 @@ public class Project implements Serializable {
         }
     }
 
-    public String getProjName(){
-        return projName;
-    }//returns project name
-    public String getProjNote(){
-        return projNote;
-    }
-    public int getProjDuration(){
-        return ProjDuration;
-    }
-
-    public void setProjName(@NotNull String a){//sets the project name
+    public void setProjName(String a){//sets the project name
         if (a.length() > 20){
             System.out.print("Error: project name exceeds length");
         } else{
@@ -112,14 +98,29 @@ public class Project implements Serializable {
         }
     }
 
+    public ArrayList<Task> getProjectTasks(){
+        return ProjectTasks;
+    }
+
+    public String getProjName(){
+        return projName;
+    }//returns project name
+
+    public String getProjNote(){
+        return projNote;
+    }
+
+    public int getProjDuration(){
+        return ProjDuration;
+    }
+
     public LocalDate getStartDate(){
         return StartDate;
     }
 
+    public Task getCurrentTask() { return CurrentTask; }
 
-    public Task getCurrentTask() {
-        return CurrentTask;
-    }
+    public ArrayList<Team> getProjectTeams() { return ProjectTeams; }
 }
 
 

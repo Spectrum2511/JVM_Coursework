@@ -1,5 +1,5 @@
 import classes.*;
-
+import GUI_elements.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,7 +18,8 @@ public class programHandler {
     }
 
     public static void main(String args[]) throws IOException {
-        programHandler handler = getInstance();
+        JVM gui = new JVM();
+        /*        programHandler handler = getInstance();
 
         handler.CreateProject("proj1", "aaaaaaaaaaaaa", "2020-11-12", 100);
         handler.CreateProject("proj2", "bbbbbbbbbbbbb", "2020-12-14", 50);
@@ -31,9 +32,9 @@ public class programHandler {
         handler.getProjOfName("proj2").addTask("finalise proj", 20);
         handler.CreateProject("proj3", "cccccccccccccccc","2020-12-25",365);
         handler.getProjOfName("proj1").displayTaskData();
-
-        //loadInstances();
-        saveInstances();
+*/
+        loadInstances();
+        //saveInstances();
         System.out.println("=========END TEST==========");
     }
 
@@ -70,6 +71,15 @@ public class programHandler {
             }
             csvWriter.append(Proj_data[Proj_data.length -1]);
             csvWriter.append("\n");
+            for (int h = 0; h < j.getProjectTeams().size(); h++){
+                Team g = j.getProjectTeams().get(h);
+                String team_data[] = {"g",g.getTeamName(),g.getTeamDescription(),String.valueOf(g.getIDnumb())};
+                for (int c = 0; c < team_data.length -1; c++){
+                    csvWriter.append(team_data[c] + ",");
+                }
+                csvWriter.append(team_data[team_data.length -1]);
+                csvWriter.append("\n");
+            }
             for (int h = 0; h < j.getProjectTasks().size(); h++){
                 Task t = j.getProjectTasks().get(h);
                 String task_data[] = {"t", t.getTaskDesc(), t.getAssignedProj().getProjName(),
@@ -95,16 +105,17 @@ public class programHandler {
                 if (data[0].equals("p")){
                     instance.CreateProject(data[1],data[2],data[3],Integer.parseInt(data[4]));
                 }
+                if (data[0].equals("g")){
+                    instance.currentProject.createTeam(data[1],data[2],Integer.parseInt(data[3]));
+                }
                 if(data[0].equals("t")){
                     instance.currentProject.addTask(data[1],Integer.parseInt(data[3]));
+                    if (data[4]!= "N/A" || data[4] != null){
+                        instance.currentProject.AssignTeamToTask(data[4],data[1]);
+                    }
                 }
             }
             csvReader.close();
-
-
-
-
-
         } else{
 
         }

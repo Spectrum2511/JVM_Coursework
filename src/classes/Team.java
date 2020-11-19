@@ -37,6 +37,14 @@ public class Team {
         teamTasks.add(tk);
     }
 
-    
+    public String getTeamDescription() {
+        if (TeamName == "N/A"){
+            return "";
+        } else {
+            return TeamDescription;
+        }
+    }
+
+    public int getIDnumb() { return IDnumb; }
 
 }

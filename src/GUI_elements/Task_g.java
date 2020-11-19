@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Task_inp extends JFrame {
+public class Task_g extends JFrame {
     private JButton addTaskButton;
     private JButton editTaskButton;
     private JButton deleteTaskButton;
@@ -21,7 +21,7 @@ public class Task_inp extends JFrame {
     //Launches the Application
     public static void main(String[] args) {
         JFrame taskframe = new JFrame("Task");
-        taskframe.setContentPane(new Task_inp().taskPanel);
+        taskframe.setContentPane(new Task_g().taskPanel);
         //frame1.setSize(700, 600);
         taskframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         taskframe.pack();
@@ -29,7 +29,7 @@ public class Task_inp extends JFrame {
     }
 
 
-    public Task_inp() {
+    public Task_g() {
         addTaskButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

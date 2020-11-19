@@ -1,5 +1,4 @@
 package classes;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -13,11 +12,9 @@ public class Task {
     private boolean isLast;
     private Task nextTask;
     private int thisIndex;
-
     private Task prevTask;
     private boolean isCompleted = false;
     private Team assignedTeam;
-
 
     public Task(String desc, Project p, int d){
         TaskDesc = desc;
@@ -53,19 +50,18 @@ public class Task {
         }
     }
 
-    public String getTaskDesc(){
-        return TaskDesc;
-    }
-
-    public LocalDate getStartDate(){
-        return startDate;
-    }
-
     public Task getNextTask(){
         if (isLast){
             System.out.println("last task");
         }
         return nextTask;
+    }
+
+    public Task getPrevTask(){
+        if (isFirst){
+            System.out.println("first task");
+        }
+        return prevTask;
     }
 
     public Boolean getIsCompleted(){
@@ -76,16 +72,16 @@ public class Task {
         isCompleted = true;
     }
 
-    public Task getPrevTask(){
-        if (isFirst){
-            System.out.println("first task");
-        }
-        return prevTask;
+    public String getTaskDesc(){ return TaskDesc; }
+
+    public LocalDate getStartDate(){
+        return startDate;
     }
 
     public void setAssignedTeam(Team a){
         assignedTeam = a;
     }
+
     public Team getAssignedTeam(){ return assignedTeam;}
 
     public Project getAssignedProj() { return AssignedProj; }

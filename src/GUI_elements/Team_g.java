@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Team_inp extends JFrame {
+public class Team_g extends JFrame {
     public JPanel teamPanel;
     private JTextField txt_personname1;
     private JTextField txt_personname2;
@@ -23,7 +23,7 @@ public class Team_inp extends JFrame {
     //Launches the Application
     public static void main(String[] args) {
         JFrame teamframe = new JFrame("Team");
-        teamframe.setContentPane(new Team_inp().teamPanel);
+        teamframe.setContentPane(new Team_g().teamPanel);
         //frame1.setSize(700, 600);
         teamframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         teamframe.pack();
@@ -31,7 +31,7 @@ public class Team_inp extends JFrame {
     }
 
 
-    public Team_inp() {
+    public Team_g() {
         addTeamButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
