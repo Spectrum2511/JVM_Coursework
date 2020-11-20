@@ -1,44 +1,21 @@
-import classes.*;
-
 import java.io.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import classes.*;
 
 public class programHandler {
 
-    private static final programHandler instance = new programHandler();
+    public static programHandler instance = new programHandler();
     public static ArrayList<Project> projects;
     public Project currentProject;
     private static final String filepath="C:\\Users\\Sean Daly\\Google Drive\\Uni Stuff\\Year 3" +
             "\\Term 1\\COMP1815- JVM Programming Languages\\Coursework\\src\\classes";
 
-    private programHandler() {
-        projects = new ArrayList<>();
-        currentProject = null;
-    }
+
 
     public static void main(String args[]) throws IOException {
-        //programHandler handler = getInstance();
-
-        //Project proj1 = new Project("Project JVM", "The JVM Coursework", "2021-11-05",100);
-    /*   instance.CreateProject("Project JVM", "The JVM Coursework", "2021-11-05",100);
-        instance.currentProject.createTeam("Team A","a a a a a a",1);
-        instance.currentProject.createTeam("Team B","b b b b b b b", 2);
-        instance.currentProject.addTask("A",30, "");
-        instance.currentProject.addTask("B", 60, "A");
-        instance.currentProject.addTask("C", 30, "A");
-        instance.currentProject.addTask("D",20,"A");
-        instance.currentProject.addTask("E", 365,"D,B,C");
-        instance.currentProject.addTask("F",0,"E");
-        instance.currentProject.AssignTeamToTask("Team A","A");
-        instance.currentProject.AssignTeamToTask("Team A","B");
-        instance.currentProject.AssignTeamToTask("Team A","C");
-        instance.currentProject.AssignTeamToTask("Team B","D");
-    */
-        //System.out.println("==================END TEST==================");
-
+        projects = new ArrayList<>();
         loadInstances();
-        //saveInstances();
+        JVM interfase = new JVM();
         System.out.println("=========END TEST==========");
     }
 
@@ -46,7 +23,6 @@ public class programHandler {
         return instance;
     }
 
-    
     public void CreateProject(String name, String note, String startdate, int dur){
         Project tmp = new Project(name, note, startdate, dur);
         projects.add(tmp);
@@ -64,7 +40,7 @@ public class programHandler {
         return a;
     }
 
-    public static void saveInstances() throws IOException {
+    public void saveInstances() throws IOException {
         FileWriter csvWriter = new FileWriter("Projects.csv");
         for (Project j : projects) {
             String[] Proj_data = {"p", j.getProjName(), j.getProjNote(), j.getStartDate().toString(),

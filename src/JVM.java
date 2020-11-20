@@ -1,13 +1,16 @@
-package GUI_elements;
+import classes.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
 
-public class JVM extends JPanel{
-    private JFrame mainframe = new JFrame("JVM");
+public class JVM extends JFrame {
+    JFrame mainframe = new JFrame("JVM");
+    programHandler handler = programHandler.getInstance();
     private JButton btn_addproject;
     private JButton btn_addtask;
     private JButton btn_assignteams;
@@ -15,14 +18,17 @@ public class JVM extends JPanel{
     private JLabel lbl_projecttasks;
     private JTable table_project;
     private JTextArea textArea_details;
-    private JPanel tablePanel;
-    public JPanel mainPanel;
+    private JPanel mainPanel;
     private JToolBar topToolBar;
     private JLabel lbl_projecttabletitle;
+    private JButton savebtn;
+    private JComboBox Projectcbx;
+    private JLabel ProjectSelect;
 
-    public class JVMTable {
 
-        private JVMTable() {
+    public class JVMTable extends JTable{
+
+        public JVMTable() {
 
             DefaultTableModel model = new DefaultTableModel();
 
@@ -39,33 +45,32 @@ public class JVM extends JPanel{
         }
     }
 
+    public void initialise_GUI(){
+        ArrayList<Task> tasks = handler.currentProject.getProjectTasks();
+        String[] headings = {"Task Description", "Assigned to Team: ", "Starts:", "Ends:"};
 
-        //Launches the Application
-    public static void main(String[] args) {
-        /*
-        JFrame mainframe = new JFrame("JVM");
-        mainframe.setContentPane(new JVM().mainPanel);
-        //frame.setSize(700, 600);
-        mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainframe.pack();
-        mainframe.setVisible(true);
-*/
+
+
+
+
     }
 
-
     //Creates the functions
-    public JVM() {
-        mainframe.setContentPane(this.mainPanel);
+    public JVM() throws IOException {
+
+        mainframe.setContentPane(mainPanel);
+        //mainframe.setSize(700, 600);
         mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainframe.pack();
+        mainframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainframe.setVisible(true);
+        initialise_GUI();
 
         btn_addproject.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Project_inp Project = new Project_inp();
-                Project.setContentPane(new Project_inp().projectPanel);
+                Project_gui Project = new Project_gui();
+                Project.setContentPane(new Project_gui().projectPanel);
                 Project.pack();
                 Project.setVisible(true);
             }
@@ -74,8 +79,8 @@ public class JVM extends JPanel{
         btn_addtask.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Task_inp Task = new Task_inp();
-                Task.setContentPane(new Task_inp().taskPanel);
+                Task_gui Task = new Task_gui();
+                Task.setContentPane(new Task_gui().taskPanel);
                 Task.pack();
                 Task.setVisible(true);
             }
@@ -84,8 +89,8 @@ public class JVM extends JPanel{
         btn_assignteams.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Team_inp Team = new Team_inp();
-                Team.setContentPane(new Team_inp().teamPanel);
+                Team_gui Team = new Team_gui();
+                Team.setContentPane(new Team_gui().teamPanel);
                 Team.pack();
                 Team.setVisible(true);
             }
@@ -101,8 +106,27 @@ public class JVM extends JPanel{
         table_project.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+               // model.insertRow(model.getRowCount(), new Object[]{})
                 //JVMTable JVMTable = new JVMTable();
                 //JVMTable = (DefaultTableModel)table_project.getModel();
+
+            }
+        });
+
+        savebtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)  {
+                try { handler.saveInstances();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                    System.out.println("ERROR: Projects failed to save");
+                }
+            }
+        });
+
+        Projectcbx.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
             }
         });

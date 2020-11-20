@@ -1,9 +1,9 @@
-p%Project JVM%The JVM Coursework%2021-11-05%100
-g%Team A%a a a a a a%1
-g%Team B%b b b b b b b%2
-t%A%Project JVM%30%Team A%null
-t%B%Project JVM%60%Team A%A
-t%C%Project JVM%30%Team A%A
-t%D%Project JVM%20%Team B%A
-t%E%Project JVM%365%null%D,B,C
-t%F%Project JVM%0%null%E
+p%Project_gui JVM%The JVM Coursework%2021-11-05%100
+g%Team_gui A%a a a a a a%1
+g%Team_gui B%b b b b b b b%2
+t%A%Project_gui JVM%30%Team_gui A%null
+t%B%Project_gui JVM%60%Team_gui A%A
+t%C%Project_gui JVM%30%Team_gui A%A
+t%D%Project_gui JVM%20%Team_gui B%A
+t%E%Project_gui JVM%365%null%D,B,C
+t%F%Project_gui JVM%0%null%E

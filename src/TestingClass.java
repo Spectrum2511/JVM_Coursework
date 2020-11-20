@@ -1,4 +1,3 @@
-import GUI_elements.*;
 import classes.Project;
 import classes.Team;
 import classes.Task;

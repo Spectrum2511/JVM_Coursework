@@ -1,5 +1,3 @@
-package GUI_elements;
-
 import javax.swing.JOptionPane;
 
 class PopUP_Window {
