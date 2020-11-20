@@ -88,6 +88,10 @@ public class Project implements Serializable {
         return ProjectTasks;
     }
 
+    public ArrayList<Team> getProjectTeams(){
+        return ProjectTeams;
+    }
+
 
     public String getProjName(){
         return projName;

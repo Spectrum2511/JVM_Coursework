@@ -37,6 +37,10 @@ public class Team {
         teamTasks.add(tk);
     }
 
+    public String getTeamDescription() { return TeamDescription; }
+
+    public int getID() { return IDnumb; }
+
     
 
 }

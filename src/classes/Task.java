@@ -25,7 +25,7 @@ public class Task {
         Duration = d;
         Predecessors = addTo;
         assignedTeam = AssignedProj.nonAssigned;
-        if (!addTo.equals("")){
+        if (!addTo.equals("null")){
             String[] nodes = addTo.split(",");
             for (String node : nodes) {
                 AssignedProj.getTaskOfDescription(node).getNextTasks().add(this);
