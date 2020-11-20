@@ -8,19 +8,22 @@ public class Task {
     //private classes.Team assignedTo;
     private Project AssignedProj;
     private int Duration;
-    private LocalDate startDate;
+    private LocalDate TaskStartDate;
+    private LocalDate TaskEndDate;
     private boolean isFirst;
     private boolean isLast;
     private ArrayList<Task> nextTask = new ArrayList<>();
     private ArrayList<Task> prevTask = new ArrayList<>();
     private boolean isCompleted = false;
     private Team assignedTeam;
+    private String Predecessors;
 
 
     public Task(String desc, Project p, int d, String addTo){
         TaskDesc = desc;
         AssignedProj = p;
         Duration = d;
+        Predecessors = addTo;
         assignedTeam = AssignedProj.nonAssigned;
         if (!addTo.equals("")){
             String[] nodes = addTo.split(",");
@@ -37,34 +40,35 @@ public class Task {
         if((thisIndex == 0) && (prevTask.isEmpty())) {
             isFirst = true;
             isLast = false;
-            startDate = AssignedProj.getStartDate();
+            TaskStartDate = AssignedProj.getStartDate();
         }
         if ((thisIndex + 1 == otherJobs.size() && otherJobs.size() > 1)&&(nextTask.isEmpty())){
             isLast = true;
             isFirst = false;
             LocalDate max = LocalDate.parse("1111-11-11");
             for (int i = 0; i < prevTask.size(); i++){
-                LocalDate c = this.getPrevTasks().get(i).startDate.plusDays(this.getPrevTasks().get(i).getDuration());
+                LocalDate c = this.getPrevTasks().get(i).TaskStartDate.plusDays(this.getPrevTasks().get(i).getDuration());
                 if (c.compareTo(max) > 0)
                         max = c;
             }
-            startDate = max;
+            TaskStartDate = max;
         } else if (otherJobs.size() > 1 && thisIndex !=0 && thisIndex != otherJobs.size()-1){
             LocalDate max = LocalDate.parse("1111-11-11");
             for (int i = 0; i < prevTask.size(); i++){
-                LocalDate c = this.getPrevTasks().get(i).startDate.plusDays(this.getPrevTasks().get(i).getDuration());
+                LocalDate c = this.getPrevTasks().get(i).TaskStartDate.plusDays(this.getPrevTasks().get(i).getDuration());
                 if (c.compareTo(max) > 0)
                     max = c;
             }
         }
+        TaskEndDate = TaskStartDate.plusDays(Duration);
     }
 
     public String getTaskDesc(){
         return TaskDesc;
     }
 
-    public LocalDate getStartDate(){
-        return startDate;
+    public LocalDate getTaskStartDate(){
+        return TaskStartDate;
     }
 
     public ArrayList<Task> getNextTasks(){
@@ -89,6 +93,8 @@ public class Task {
     public Team getAssignedTeam(){ return assignedTeam;}
 
     public Project getAssignedProj() { return AssignedProj; }
+
+    public String getPredecessors() { return Predecessors; }
 
     public int getDuration(){ return Duration; }
 }
