@@ -26,33 +26,17 @@ public class JVM extends JFrame {
     private JLabel ProjectSelect;
 
 
-    public class JVMTable extends JTable{
-
-        public JVMTable() {
-
-            DefaultTableModel model = new DefaultTableModel();
-
-            table_project.setAutoCreateRowSorter(true);
-            table_project.setFillsViewportHeight(true);
-            //table_project.setPreferredScrollableViewportSize(new Dimension(550, 200));
-            model.addColumn("Task");
-            model.addColumn("Assigned to");
-            model.addColumn("Details");
-            model.addColumn("Time Allocated");
-            table_project.setModel(model);
-            JScrollPane scrollPane = new JScrollPane(table_project);
-            add(scrollPane);
-        }
-    }
-
     public void initialise_GUI(){
         ArrayList<Task> tasks = handler.currentProject.getProjectTasks();
         String[] headings = {"Task Description", "Assigned to Team: ", "Starts:", "Ends:"};
+        String[][] data = {
+                {"Hello Task", "Team A", " 2020-12-15", "2020-12-16"}
+        };
 
 
-
-
-
+        table_project = new JTable(data,headings);
+        JScrollPane sp=new JScrollPane(table_project);
+        mainframe.add(sp);
     }
 
     //Creates the functions
@@ -60,11 +44,12 @@ public class JVM extends JFrame {
 
         mainframe.setContentPane(mainPanel);
         //mainframe.setSize(700, 600);
+        initialise_GUI();
         mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainframe.pack();
         mainframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainframe.setVisible(true);
-        initialise_GUI();
+
 
         btn_addproject.addActionListener(new ActionListener() {
             @Override
