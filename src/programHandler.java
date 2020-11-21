@@ -14,9 +14,23 @@ public class programHandler {
 
     public static void main(String args[]) throws IOException {
         projects = new ArrayList<>();
+        /*
         loadInstances();
         JVM interfase = new JVM();
         System.out.println("=========END TEST==========");
+         */
+        instance.CreateProject("project 1", "testing project", "2020-11-25", 80);
+        instance.currentProject.addTask("A", 20, "null");
+        instance.currentProject.addTask("B", 30, "A");
+        instance.currentProject.addTask("C", 50, "A");
+        instance.currentProject.addTask("D", 10, "B");
+        instance.currentProject.addTask("E", 100, "B,C");
+        instance.currentProject.addTask("F", 15, "D,E");
+        instance.currentProject.addTask("G", 20, "C");
+        instance.currentProject.addTask("H", 0, "F,G");
+
+        critical_path path = new critical_path();
+        path.calculate_critical_path();
     }
 
     public static programHandler getInstance( ) {
@@ -97,25 +111,9 @@ public class programHandler {
 
             }
             csvReader.close();
-
-
-
-
-
         }
 
 
     }
-
-
-
-
-/*
-JFrame frame = new JFrame("JVM");
-        frame.setContentPane(new JVM().mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
- */
 
 }
