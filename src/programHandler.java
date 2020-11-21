@@ -5,8 +5,8 @@ import classes.*;
 public class programHandler {
 
     public static programHandler instance = new programHandler();
-    public static ArrayList<Project> projects;
-    public Project currentProject;
+    private static ArrayList<Project> projects;
+    private Project currentProject;
     private static final String filepath="C:\\Users\\Sean Daly\\Google Drive\\Uni Stuff\\Year 3" +
             "\\Term 1\\COMP1815- JVM Programming Languages\\Coursework\\src\\classes";
 
@@ -14,23 +14,22 @@ public class programHandler {
 
     public static void main(String args[]) throws IOException {
         projects = new ArrayList<>();
-        /*
         loadInstances();
-        JVM interfase = new JVM();
-        System.out.println("=========END TEST==========");
-         */
-        instance.CreateProject("project 1", "testing project", "2020-11-25", 80);
-        instance.currentProject.addTask("A", 20, "null");
-        instance.currentProject.addTask("B", 30, "A");
-        instance.currentProject.addTask("C", 50, "A");
-        instance.currentProject.addTask("D", 10, "B");
-        instance.currentProject.addTask("E", 100, "B,C");
-        instance.currentProject.addTask("F", 15, "D,E");
-        instance.currentProject.addTask("G", 20, "C");
-        instance.currentProject.addTask("H", 0, "F,G");
+        //System.out.println("=========END TEST==========");
+        //instance.CreateProject("project 1", "testing project", "2020-11-25", 80);
+        //instance.currentProject.addTask("A", 20, "null");
+        //instance.currentProject.addTask("B", 30, "A");
+        //instance.currentProject.addTask("C", 50, "A");
+        //instance.currentProject.addTask("D", 10, "B");
+        //instance.currentProject.addTask("E", 100, "B,C");
+        //instance.currentProject.addTask("F", 15, "D,E");
+        //instance.currentProject.addTask("G", 20, "C");
+        //instance.currentProject.addTask("H", 0, "F,G");
 
         critical_path path = new critical_path();
         path.calculate_critical_path();
+
+        //instance.saveInstances();
     }
 
     public static programHandler getInstance( ) {
@@ -54,7 +53,11 @@ public class programHandler {
         return a;
     }
 
-    public void saveInstances() throws IOException {
+    public Project getCurrentProject(){
+        return currentProject;
+    }
+
+    public static void saveInstances() throws IOException {
         FileWriter csvWriter = new FileWriter("Projects.csv");
         for (Project j : projects) {
             String[] Proj_data = {"p", j.getProjName(), j.getProjNote(), j.getStartDate().toString(),

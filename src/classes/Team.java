@@ -20,7 +20,7 @@ public class Team {
     }
 
     public Team(String name){
-        if (name.equals("N/A")){
+        if (name.equals("N/A") || (name.isEmpty())){
             TeamName = "N/A";
         }
     }
