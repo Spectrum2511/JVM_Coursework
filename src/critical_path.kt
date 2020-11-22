@@ -1,35 +1,31 @@
-import classes.*;
+import classes.Task
+import java.util.*
 
-import java.util.ArrayList;
-
-public class critical_path {
-    programHandler handler = programHandler.getInstance();
-
-    ArrayList<Task> remaining = new ArrayList<>(handler.getCurrentProject().getProjectTasks());
-    ArrayList<Task> tasks = new ArrayList<>(handler.getCurrentProject().getProjectTasks());
-    Task sp = tasks.get(0);
-    Task ep = tasks.get(tasks.size() - 1);
-    String output = "";
-
-    public void calculate_critical_path(){
-        Task this_node = sp;
-        while (!this_node.equals(ep)){
-            int highest_cost = 0;
-            Task highest_cost_node = null;
-            for (Task node: this_node.getNextTasks()){
-                if ( node.getDuration() >= highest_cost){
-                    highest_cost = node.getDuration();
-                    highest_cost_node = node;
+class critical_path {
+    var handler = programHandler.instance
+    var remaining = ArrayList(handler.currentProject?.projectTasks)
+    var tasks = ArrayList(handler.currentProject?.projectTasks)
+    var sp = tasks[0]
+    var ep = tasks[tasks.size - 1]
+    var output = ""
+    fun calculate_critical_path(): String {
+        var this_node: Task? = sp
+        while (this_node != ep) {
+            var highest_cost = 0
+            var highest_cost_node: Task? = null
+            for (node in this_node!!.nextTasks) {
+                if (node.duration >= highest_cost) {
+                    highest_cost = node.duration
+                    highest_cost_node = node
                 }
             }
-            output = output.concat(this_node.getTaskDesc());
-            remaining.remove(this_node);
-            this_node = highest_cost_node;
-            output = output.concat(", ");
+            output = output + this_node.taskDesc
+            remaining.remove(this_node)
+            this_node = highest_cost_node
+            output = "$output, "
         }
-        output = output.concat(this_node.getTaskDesc());
-        System.out.println(output);
+        output += this_node?.taskDesc ?:
+        System.out.println(output)
+        return output
     }
-
-
 }

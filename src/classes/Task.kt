@@ -1,100 +1,62 @@
-package classes;
+package classes
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.LocalDate
+import java.util.*
 
-public class Task {
-    private String TaskDesc;
-    //private classes.Team assignedTo;
-    private Project AssignedProj;
-    private int Duration;
-    private LocalDate TaskStartDate;
-    private LocalDate TaskEndDate;
-    private boolean isFirst;
-    private boolean isLast;
-    private ArrayList<Task> nextTask = new ArrayList<>();
-    private ArrayList<Task> prevTask = new ArrayList<>();
-    private boolean isCompleted = false;
-    private Team assignedTeam;
-    private String Predecessors;
+class Task(
+    val taskDesc: String, //private classes.Team assignedTo;
+    val assignedProj: Project, val duration: Int, val predecessors: String
+) {
 
+    var taskStartDate: LocalDate? = null
+        private set
+    private var TaskEndDate: LocalDate? = null
+    private var isFirst = false
+    private var isLast = false
+    val nextTasks = ArrayList<Task>()
+    val prevTasks = ArrayList<Task?>()
+    var isCompleted = false
+        private set
+    var assignedTeam: Team
+    fun checkPosition() {
+        val otherJobs = assignedProj.projectTasks
+        val thisIndex = otherJobs.indexOf(this)
+        if (thisIndex == 0 && prevTasks.isEmpty()) {
+            isFirst = true
+            isLast = false
+            taskStartDate = assignedProj.startDate
+        }
+        if (thisIndex + 1 == otherJobs.size && otherJobs.size > 1 && nextTasks.isEmpty()) {
+            isLast = true
+            isFirst = false
+            var max = LocalDate.parse("1111-11-11")
+            for (i in prevTasks.indices) {
+                val c = prevTasks[i]!!.taskStartDate!!.plusDays(prevTasks[i]!!.duration.toLong())
+                if (c.compareTo(max) > 0) max = c
+            }
+            taskStartDate = max
+        } else if (otherJobs.size > 1 && thisIndex != 0 && thisIndex != otherJobs.size - 1) {
+            var max = LocalDate.parse("1111-11-11")
+            for (i in prevTasks.indices) {
+                val c = prevTasks[i]!!.taskStartDate!!.plusDays(prevTasks[i]!!.duration.toLong())
+                if (c.compareTo(max) > 0) max = c
+            }
+        }
+        TaskEndDate = taskStartDate!!.plusDays(duration.toLong())
+    }
 
-    public Task(String desc, Project p, int d, String addTo){
-        TaskDesc = desc;
-        AssignedProj = p;
-        Duration = d;
-        Predecessors = addTo;
-        assignedTeam = AssignedProj.nonAssigned;
-        if (!addTo.equals("null")){
-            String[] nodes = addTo.split(",");
-            for (String node : nodes) {
-                AssignedProj.getTaskOfDescription(node).getNextTasks().add(this);
-                this.getPrevTasks().add(AssignedProj.getTaskOfDescription(node));
+    fun setTaskComplete() {
+        isCompleted = true
+    }
+
+    init {
+        assignedTeam = assignedProj.nonAssigned
+        if (predecessors != "null") {
+            val nodes = predecessors.split(",".toRegex()).toTypedArray()
+            for (node in nodes) {
+                assignedProj.getTaskOfDescription(node)!!.nextTasks.add(this)
+                prevTasks.add(assignedProj.getTaskOfDescription(node))
             }
         }
     }
-
-    public void checkPosition(){
-        ArrayList<Task> otherJobs = AssignedProj.getProjectTasks();
-        int thisIndex = otherJobs.indexOf(this);
-        if((thisIndex == 0) && (prevTask.isEmpty())) {
-            isFirst = true;
-            isLast = false;
-            TaskStartDate = AssignedProj.getStartDate();
-        }
-        if ((thisIndex + 1 == otherJobs.size() && otherJobs.size() > 1)&&(nextTask.isEmpty())){
-            isLast = true;
-            isFirst = false;
-            LocalDate max = LocalDate.parse("1111-11-11");
-            for (int i = 0; i < prevTask.size(); i++){
-                LocalDate c = this.getPrevTasks().get(i).TaskStartDate.plusDays(this.getPrevTasks().get(i).getDuration());
-                if (c.compareTo(max) > 0)
-                        max = c;
-            }
-            TaskStartDate = max;
-        } else if (otherJobs.size() > 1 && thisIndex !=0 && thisIndex != otherJobs.size()-1){
-            LocalDate max = LocalDate.parse("1111-11-11");
-            for (int i = 0; i < prevTask.size(); i++){
-                LocalDate c = this.getPrevTasks().get(i).TaskStartDate.plusDays(this.getPrevTasks().get(i).getDuration());
-                if (c.compareTo(max) > 0)
-                    max = c;
-            }
-        }
-        TaskEndDate = TaskStartDate.plusDays(Duration);
-    }
-
-    public String getTaskDesc(){
-        return TaskDesc;
-    }
-
-    public LocalDate getTaskStartDate(){
-        return TaskStartDate;
-    }
-
-    public ArrayList<Task> getNextTasks(){
-        return nextTask;
-    }
-
-    public Boolean getIsCompleted(){
-        return isCompleted;
-    }
-
-    public void setTaskComplete(){
-        isCompleted = true;
-    }
-
-    public ArrayList<Task> getPrevTasks(){
-        return prevTask;
-    }
-
-    public void setAssignedTeam(Team a){
-        assignedTeam = a;
-    }
-    public Team getAssignedTeam(){ return assignedTeam;}
-
-    public Project getAssignedProj() { return AssignedProj; }
-
-    public String getPredecessors() { return Predecessors; }
-
-    public int getDuration(){ return Duration; }
 }
