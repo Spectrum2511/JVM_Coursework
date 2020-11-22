@@ -1,12 +1,15 @@
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import classes.*;
 
 public class programHandler {
 
     public static programHandler instance = new programHandler();
     private static ArrayList<Project> projects;
-    private Project currentProject;
+    private static Project currentProject;
     private static final String filepath="C:\\Users\\Sean Daly\\Google Drive\\Uni Stuff\\Year 3" +
             "\\Term 1\\COMP1815- JVM Programming Languages\\Coursework\\src\\classes";
 
@@ -15,21 +18,53 @@ public class programHandler {
     public static void main(String args[]) throws IOException {
         projects = new ArrayList<>();
         loadInstances();
-        //System.out.println("=========END TEST==========");
+
         //instance.CreateProject("project 1", "testing project", "2020-11-25", 80);
-        //instance.currentProject.addTask("A", 20, "null");
-        //instance.currentProject.addTask("B", 30, "A");
-        //instance.currentProject.addTask("C", 50, "A");
-        //instance.currentProject.addTask("D", 10, "B");
-        //instance.currentProject.addTask("E", 100, "B,C");
-        //instance.currentProject.addTask("F", 15, "D,E");
-        //instance.currentProject.addTask("G", 20, "C");
-        //instance.currentProject.addTask("H", 0, "F,G");
-
-        critical_path path = new critical_path();
-        path.calculate_critical_path();
-
-        //instance.saveInstances();
+        //currentProject.createTeam("Team A", "a a a a a a a", 1);
+        //currentProject.createTeam("Team B", " b b b b b b", 2);
+        //currentProject.addTask("A", 20, "null");
+        //currentProject.AssignTeamToTask("Team A", "A");
+        //currentProject.getTaskOfDescription("A").setTaskComplete();
+        //currentProject.addTask("B", 30, "A");
+        //currentProject.AssignTeamToTask("Team A", "B");
+        //currentProject.getTaskOfDescription("B").setTaskComplete();
+        //currentProject.addTask("C", 50, "A");
+        //currentProject.AssignTeamToTask("Team A", "C");
+        //currentProject.getTaskOfDescription("C").setTaskComplete();
+        //currentProject.addTask("D", 10, "B");
+        //currentProject.AssignTeamToTask("Team B", "D");
+        //currentProject.addTask("E", 100, "B,C");
+        //currentProject.AssignTeamToTask("Team B", "E");
+        //currentProject.addTask("F", 15, "D,E");
+        //currentProject.addTask("G", 20, "C");
+        //currentProject.addTask("H", 0, "F,G");
+        //System.out.println(instance.currentProject.getCurrentTask().getTaskDesc());
+        //critical_path path = new critical_path();
+        //path.calculate_critical_path();
+//
+        //instance.CreateProject("project 2", "testing project the second", "2020-11-25", 80);
+        //currentProject.createTeam("Team C", "c c c c c c", 1);
+        //currentProject.createTeam("Team D", " d d d d d d", 2);
+        //currentProject.addTask("A", 20, "null");
+        //currentProject.AssignTeamToTask("Team C", "A");
+        //currentProject.getTaskOfDescription("A").setTaskComplete();
+        //currentProject.addTask("B", 30, "A");
+        //currentProject.AssignTeamToTask("Team C", "B");
+        //currentProject.getTaskOfDescription("B").setTaskComplete();
+        //currentProject.addTask("C", 50, "A");
+        //currentProject.AssignTeamToTask("Team C", "C");
+        //currentProject.getTaskOfDescription("C").setTaskComplete();
+        //currentProject.addTask("D", 10, "B");
+        //currentProject.AssignTeamToTask("Team D", "D");
+        //currentProject.addTask("E", 100, "B,C");
+        //currentProject.AssignTeamToTask("Team D", "E");
+        //currentProject.addTask("H", 0, "D,E,C");
+        //System.out.println(instance.currentProject.getCurrentTask().getTaskDesc());
+        //critical_path crit = new critical_path();
+        //crit.calculate_critical_path();
+//
+        //saveInstances();
+        System.out.println("=========END TEST==========");
     }
 
     public static programHandler getInstance( ) {
@@ -37,9 +72,13 @@ public class programHandler {
     }
 
     public void CreateProject(String name, String note, String startdate, int dur){
-        Project tmp = new Project(name, note, startdate, dur);
-        projects.add(tmp);
-        currentProject = tmp;
+        if (startdate.compareTo(String.valueOf(LocalDate.now())) < 0){
+            System.out.println("ERROR: starting date is earlier than current date!");
+        } else{
+            Project tmp = new Project(name, note, startdate, dur);
+            projects.add(tmp);
+            currentProject = tmp;
+        }
     }
 
     public Project getProjOfName(String name){
@@ -60,31 +99,42 @@ public class programHandler {
     public static void saveInstances() throws IOException {
         FileWriter csvWriter = new FileWriter("Projects.csv");
         for (Project j : projects) {
-            String[] Proj_data = {"p", j.getProjName(), j.getProjNote(), j.getStartDate().toString(),
-                    String.valueOf(j.getProjDuration())};
-            for (int c = 0; c < Proj_data.length - 1; c++) {
-                csvWriter.append(Proj_data[c]).append("%");
-            }
-            csvWriter.append(Proj_data[Proj_data.length - 1]);
+            ArrayList<String> Proj_data = new ArrayList<>(Arrays.asList("p", j.getProjName(), j.getProjNote(), j.getStartDate().toString(),
+                    String.valueOf(j.getProjDuration())));
+            Proj_data.forEach((c)->{
+                try {
+                    csvWriter.append(c).append("%");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            csvWriter.append(Proj_data.get(Proj_data.size() - 1));
             csvWriter.append("\n");
-
             for (int h = 0; h < j.getProjectTeams().size(); h++) {
                 Team t = j.getProjectTeams().get(h);
-                String[] team_data = {"g", t.getTeamName(), t.getTeamDescription(), String.valueOf(t.getID())};
-                for (int c = 0; c < team_data.length - 1; c++) {
-                    csvWriter.append(team_data[c]).append("%");
-                }
-                csvWriter.append(team_data[team_data.length - 1]);
+                ArrayList<String> team_data = new ArrayList<> (Arrays.asList("g", t.getTeamName(), t.getTeamDescription(), String.valueOf(t.getID())));
+                team_data.forEach((c)->{
+                    try {
+                        csvWriter.append(c).append("%");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                csvWriter.append(team_data.get(team_data.size()- 1));
                 csvWriter.append("\n");
             }
             for (int h = 0; h < j.getProjectTasks().size(); h++) {
                 Task t = j.getProjectTasks().get(h);
-                String[] task_data = {"t", t.getTaskDesc(), t.getAssignedProj().getProjName(),
-                        String.valueOf(t.getDuration()), t.getAssignedTeam().getTeamName(), t.getPredecessors()};
-                for (int c = 0; c < task_data.length - 1; c++) {
-                    csvWriter.append(task_data[c]).append("%");
-                }
-                csvWriter.append(task_data[task_data.length - 1]);
+                ArrayList<String> task_data = new ArrayList<>(Arrays.asList("t", t.getTaskDesc(), t.getAssignedProj().getProjName(),
+                        String.valueOf(t.getDuration()), t.getAssignedTeam().getTeamName(), t.getPredecessors()));
+                task_data.forEach((c)->{
+                    try {
+                        csvWriter.append(c).append("%");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                csvWriter.append(task_data.get(task_data.size() - 1));
                 csvWriter.append("\n");
             }
         }

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 
 public class Project implements Serializable {
-    private String projName;//Name of the project
-    private String projNote;//Brief description of the project
+    private String projName;
+    private String projNote;
 
     private ArrayList<Task> ProjectTasks = new ArrayList<>();
     private ArrayList<Team> ProjectTeams = new ArrayList<>();
@@ -34,13 +34,14 @@ public class Project implements Serializable {
             Task t = ProjectTasks.get(i);
             t.checkPosition();
         }
+        findCurrentTask();
     }
 
-    public void findCurrentTask(Project this){
-        for (Task projectTask : this.ProjectTasks) {
-            Boolean check = projectTask.getIsCompleted();
+    public void findCurrentTask(){
+        for (Task task : this.ProjectTasks) {
+            Boolean check = task.getIsCompleted();
             if (!check) {
-                this.CurrentTask = projectTask;
+                this.CurrentTask = task;
                 break;
             }
         }
