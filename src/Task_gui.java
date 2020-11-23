@@ -1,68 +1,62 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Task_gui extends JFrame {
-    private JButton addTaskButton;
-    private JButton editTaskButton;
-    private JButton deleteTaskButton;
-    private JTextField txt_taskname;
-    private JTextField txt_taskdescription;
-    private JLabel lbl_taskname;
-    private JLabel lbl_taskdescription;
-    private JLabel lbl_taskconfiguration;
-    private JTextField txt_taskduration;
-    private JLabel lbl_taskduration;
-    public JPanel taskPanel;
+public class Task_gui extends JFrame implements ActionListener {
+    JFrame f = new JFrame("Project");
+    JPanel tkpnl = new JPanel();
+    Font tkfnt = new Font("Times New Roman", Font.PLAIN, 18);
 
+    JLabel lblName = new JLabel("Name");
+    JLabel lblDescription = new JLabel("Task Description");
+    JLabel lblDurations = new JLabel("Durations (Days)");
 
-    //Launches the Application
-    public static void main(String[] args) {
-        JFrame taskframe = new JFrame("Task");
-        taskframe.setContentPane(new Task_gui().taskPanel);
-        //frame1.setSize(700, 600);
-        taskframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        taskframe.pack();
-        taskframe.setVisible(true);
+    JTextField txtName = new JTextField();
+    JTextField txtDescription = new JTextField();
+    JTextField txtDurations = new JTextField();
+
+    // public static void main(String[] args) {
+    //    Task tk = new Task();
+    // }
+
+    public Task_gui(){
+        Task_gui();
+    }
+
+    private void Task(){
+        lblName.setFont(tkfnt);
+        lblDescription.setFont(tkfnt);
+        lblDurations.setFont(tkfnt);
+
+        tkpnl.setLayout(new GridLayout(3,2, 1,1));
+        tkpnl.add(lblName);
+        tkpnl.add(txtName);
+        tkpnl.add(lblDescription);
+        tkpnl.add(txtDescription);
+        tkpnl.add(lblDurations);
+        tkpnl.add(txtDurations);
+
+        f.add(tkpnl);
+
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        f.pack();
+        f.setVisible(true);
+
     }
 
 
-    public Task_gui() {
-        addTaskButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        if (txtName.equals(ae.getActionCommand())){
 
-            }
-        });
-        editTaskButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        }
+        if (txtDescription.equals(ae.getActionCommand())){
 
-            }
-        });
-        deleteTaskButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        }
+        if (txtDurations.equals(ae.getActionCommand())){
 
-            }
-        });
-        txt_taskname.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        txt_taskdescription.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        txt_taskduration.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
+        }
     }
 }

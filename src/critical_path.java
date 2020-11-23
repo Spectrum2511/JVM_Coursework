@@ -1,6 +1,5 @@
-import classes.*;
-
 import java.util.ArrayList;
+import classes.*;
 
 public class critical_path {
     programHandler handler = programHandler.getInstance();

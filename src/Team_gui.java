@@ -1,76 +1,56 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Team_gui extends JFrame {
-    public JPanel teamPanel;
-    private JTextField txt_personname1;
-    private JTextField txt_personname2;
-    private JTextField txt_personname3;
-    private JTextField txt_personname4;
-    private JLabel lbl_teamassignment;
-    private JLabel lbl_pname1;
-    private JLabel lbl_pname2;
-    private JLabel lbl_pname3;
-    private JLabel lbl_pname4;
-    private JButton addTeamButton;
-    private JButton editTeamButton;
-    private JButton deleteTeamButton;
+public class Team_gui extends JFrame implements ActionListener {
+    JFrame f = new JFrame("Project");
+    JPanel tmpnl = new JPanel();
+    Font tmfnt = new Font("Times New Roman", Font.PLAIN, 18);
 
+    JLabel lblTeamName = new JLabel("Team Name");
+    JLabel lblMemberNames = new JLabel("Members Name");
 
-    //Launches the Application
-    public static void main(String[] args) {
-        JFrame teamframe = new JFrame("Team");
-        teamframe.setContentPane(new Team_gui().teamPanel);
-        //frame1.setSize(700, 600);
-        teamframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        teamframe.pack();
-        teamframe.setVisible(true);
+    JTextField txtName = new JTextField();
+    JTextArea txtDescription = new JTextArea();
+
+    // public static void main(String[] args) {
+    //    Team tm = new Team();
+    // }
+
+    public Team_gui(){
+        Team();
+    }
+
+    private void Team(){
+        lblTeamName.setFont(tmfnt);
+        lblMemberNames.setFont(tmfnt);
+        txtName.setFont(tmfnt);
+        txtDescription.setFont(tmfnt);
+
+        tmpnl.setLayout(new GridLayout(2,2, 1,1));
+        tmpnl.add(lblTeamName);
+        tmpnl.add(txtName);
+        tmpnl.add(lblMemberNames);
+        tmpnl.add(txtDescription);
+
+        f.add(tmpnl);
+
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        f.pack();
+        f.setVisible(true);
+
     }
 
 
-    public Team_gui() {
-        addTeamButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        if (txtName.equals(ae.getActionCommand())){
 
-            }
-        });
-        editTeamButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        }
+        if (txtDescription.equals(ae.getActionCommand())){
 
-            }
-        });
-        deleteTeamButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        txt_personname1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        txt_personname2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        txt_personname3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        txt_personname4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
+        }
     }
 }
