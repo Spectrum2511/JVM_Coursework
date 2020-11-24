@@ -6,47 +6,59 @@ import java.time.LocalDate;
 
 public class Project_gui extends JFrame implements ActionListener {
 
-    programHandler handler = programHandler.getInstance();
+    Coursework main;
 
-    JFrame PJframe = new JFrame("Project");
-    JPanel pjpnl = new JPanel();
-    JPanel btnpanel = new JPanel();
-    Font PJfnt = new Font("Times New Roman", Font.PLAIN, 16);
+    JFrame PJframe;
+    JPanel pjpnl;
+    JPanel btnpanel;
+    Font PJfnt;
 
-    JButton btnPJSave = new JButton("Create Project");
 
-    JLabel lblName = new JLabel("Name");
-    JLabel lblDescription = new JLabel("Description");
-    JLabel lblStartDate = new JLabel("Start Date");
-    JLabel lblDurations = new JLabel("Durations (Days)");
+    JLabel lblName;
+    JLabel lblDescription;
+    JLabel lblStartDate;
+    JLabel lblDurations;
 
-    JTextField txtName = new JTextField();
-    JTextField txtDescription = new JTextField();
-    JTextField txtStartDate = new JTextField();
-    JTextField txtDurations = new JTextField();
+    JTextField txtName;
+    JTextField txtDescription;
+    JTextField txtStartDate;
+    JTextField txtDurations;
 
-   // public static void main(String[] args) {
-    //    Project pj = new Project();
-   // }
+    public Project_gui(Coursework m){
 
-    public Project_gui(){
+        main = m;
         Project();
     }
 
+
+
     private void Project(){
+        PJframe = new JFrame("Project");
+        pjpnl = new JPanel();
+        btnpanel = new JPanel();
+        PJfnt = new Font("Times New Roman", Font.PLAIN, 16);
+
+        lblName = new JLabel("Name");
+        lblDescription = new JLabel("Description");
+        lblStartDate = new JLabel("Start Date");
+        lblDurations = new JLabel("Durations (Days)");
+
+        txtName = new JTextField();
+        txtDescription = new JTextField();
+        txtStartDate = new JTextField();
+        txtDurations = new JTextField();
 
         lblName.setFont(PJfnt);
         lblDescription.setFont(PJfnt);
         lblStartDate.setFont(PJfnt);
         lblDurations.setFont(PJfnt);
 
+        JButton btnPJSave = new JButton("Create Project");
         btnPJSave.setFont(PJfnt);
-        btnPJSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        btnPJSave.addActionListener(this);
+        btnPJSave.setActionCommand("ok");
 
-            }
-        });
+
         btnpanel.add(btnPJSave);
 
         pjpnl.setLayout(new GridLayout(4,2, 15,15));
@@ -71,30 +83,13 @@ public class Project_gui extends JFrame implements ActionListener {
     }
 
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        handler.CreateProject(txtName.getText(),txtDescription.getText(), txtStartDate.getText(), Integer.parseInt(txtDurations.getText()));
-        Coursework.load_gui();
-
-        //none of these action command will work since it is only works with toolbar. ill try to solve this tomorrow morninig
-        if (txtName.equals(e.getActionCommand())){
-
-        }
-        if (txtDescription.equals(e.getActionCommand())){
-
-        }
-        if (txtStartDate.equals(e.getActionCommand())){
-
-        }
-        if (txtDurations.equals(e.getActionCommand())){
-
-        }
-
-        if (e.getSource() == btnPJSave){
-            handler.CreateProject(txtName.getText(),txtDescription.getText(), txtStartDate.getText(), Integer.parseInt(txtDurations.getText()));
-            Coursework.load_gui();
-        }
-
-    }
+   @Override
+   public void actionPerformed(ActionEvent e) {
+       //none of these action command will work since it is only works with toolbar. ill try to solve this tomorrow morninig
+       if ("ok".equals(e.getActionCommand())){
+           main.data.CreateProject(txtName.getText(),txtDescription.getText(), txtStartDate.getText(), Integer.valueOf(txtDurations.getText()));
+           main.load_gui();
+       }
+       PJframe.setVisible(false);
+   }
 }

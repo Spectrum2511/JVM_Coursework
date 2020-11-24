@@ -228,7 +228,7 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
-    public static void load_gui(){
+    public void load_gui(){
         if (!data.getProjects().isEmpty()){
             tasktable = new Object[data.getCurrentProject().getProjectTasks().size()][5];
             ArrayList<Task> t = data.getCurrentProject().getProjectTasks();
@@ -261,7 +261,7 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
     public void actionPerformed(ActionEvent ae) {
 
         if ("NewProject".equals(ae.getActionCommand())) {
-            Project_gui pj = new Project_gui();
+            Project_gui pj = new Project_gui(this);
         }
 
         if ("AddTask".equals(ae.getActionCommand())) {
