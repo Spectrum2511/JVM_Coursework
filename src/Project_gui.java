@@ -25,7 +25,6 @@ public class Project_gui extends JFrame implements ActionListener {
     JTextField txtDurations;
 
     public Project_gui(Coursework m){
-
         main = m;
         Project();
     }
@@ -87,8 +86,9 @@ public class Project_gui extends JFrame implements ActionListener {
    public void actionPerformed(ActionEvent e) {
        //none of these action command will work since it is only works with toolbar. ill try to solve this tomorrow morninig
        if ("ok".equals(e.getActionCommand())){
-           main.data.CreateProject(txtName.getText(),txtDescription.getText(), txtStartDate.getText(), Integer.valueOf(txtDurations.getText()));
-           main.load_gui();
+           main.data.CreateProject(txtName.getText(),txtDescription.getText(), txtStartDate.getText(), Integer.parseInt(txtDurations.getText()));
+           Coursework c = new Coursework();
+           main.frame.setVisible(false);
        }
        PJframe.setVisible(false);
    }

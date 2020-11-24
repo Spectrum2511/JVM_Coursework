@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Team_gui extends JFrame implements ActionListener {
+public class AssignTeam_gui extends JFrame implements ActionListener {
     JFrame TMframe = new JFrame("Team");
     JPanel tmpnl = new JPanel();
     JPanel btnpnl = new JPanel();
@@ -23,7 +23,7 @@ public class Team_gui extends JFrame implements ActionListener {
     //    Team tm = new Team();
     // }
 
-    public Team_gui(){
+    public AssignTeam_gui(){
         Team();
     }
 

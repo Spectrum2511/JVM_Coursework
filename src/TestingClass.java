@@ -10,7 +10,7 @@ public class TestingClass {
         Project proj1 = new Project("Project JVM", "The JVM Coursework", "2021-11-05",100);
         proj1.createTeam("Team A","a a a a a a",01);
         proj1.createTeam("Team B","b b b b b b b", 02);
-        proj1.addTask("A",30, "");
+        proj1.addTask("A",30, "null");
         proj1.addTask("B", 60, "A");
         proj1.addTask("C", 30, "A");
         proj1.addTask("D",20,"A");
@@ -22,6 +22,7 @@ public class TestingClass {
         proj1.AssignTeamToTask("Team B","D");
         proj1.AssignTeamToTask("Team B","E");
         proj1.AssignTeamToTask("Team B","F");
+        critical_path_improved path = new critical_path_improved();
         System.out.println("==================END TEST==================");
     }
 }

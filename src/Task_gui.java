@@ -11,45 +11,46 @@ public class Task_gui extends JFrame implements ActionListener {
     Font tkfnt = new Font("Times New Roman", Font.PLAIN, 18);
 
     JButton btnTKSave = new JButton("Save Task");
-    JButton btnTaskExit = new JButton("Exit Task");
 
-    JLabel lblName = new JLabel("Name");
-    JLabel lblDescription = new JLabel("Task Description");
-    JLabel lblDurations = new JLabel("Durations (Days)");
 
-    JTextField txtName = new JTextField();
-    JTextField txtDescription = new JTextField();
-    JTextField txtDurations = new JTextField();
+    JLabel lblDescript = new JLabel("Task Description");
+    JLabel lblDuration = new JLabel("Task Duration");
+    JLabel lblleads = new JLabel("Task leads from");
+
+    JTextField txtDescript = new JTextField();
+    JTextField txtDuration = new JTextField();
+    JTextField txtleads = new JTextField();
+    Coursework main;
 
     // public static void main(String[] args) {
     //    Task tk = new Task();
     // }
 
-    public Task_gui(){
+    public Task_gui(Coursework m){
         Task();
+        main = m;
     }
 
     private void Task(){
-        lblName.setFont(tkfnt);
-        lblDescription.setFont(tkfnt);
-        lblDurations.setFont(tkfnt);
+        lblDescript.setFont(tkfnt);
+        lblDuration.setFont(tkfnt);
+        lblleads.setFont(tkfnt);
 
         btnTKSave.setFont(tkfnt);
-        btnTaskExit.setFont(tkfnt);
-
+        btnTKSave.addActionListener(this);
+        btnTKSave.setActionCommand("ok");
         btnpnl.add(btnTKSave);
-        btnpnl.add(btnTaskExit);
 
         tkpnl.setLayout(new GridLayout(3,2, 15,15));
-        tkpnl.add(lblName);
-        tkpnl.add(txtName);
-        tkpnl.add(lblDescription);
-        tkpnl.add(txtDescription);
-        tkpnl.add(lblDurations);
-        tkpnl.add(txtDurations);
+        tkpnl.add(lblDescript);
+        tkpnl.add(txtDescript);
+        tkpnl.add(lblDuration);
+        tkpnl.add(txtDuration);
+        tkpnl.add(lblleads);
+        tkpnl.add(txtleads);
 
-        TKframe.add(btnpnl, BorderLayout.NORTH);
-        TKframe.add(tkpnl, BorderLayout.CENTER);
+        TKframe.add(btnpnl, BorderLayout.CENTER);
+        TKframe.add(tkpnl, BorderLayout.NORTH);
 
         TKframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         TKframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -60,33 +61,12 @@ public class Task_gui extends JFrame implements ActionListener {
 
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
-        if (txtName.equals(ae.getActionCommand())){
-
+    public void actionPerformed(ActionEvent e) {
+        if ("ok".equals(e.getActionCommand())){
+            main.data.getCurrentProject().addTask(txtDescript.getText(),Integer.parseInt(txtDuration.getText()), txtleads.getText());
+            Coursework c = new Coursework();
+            main.frame.setVisible(false);
         }
-        if (txtDescription.equals(ae.getActionCommand())){
-
-        }
-        if (txtDurations.equals(ae.getActionCommand())){
-
-        }
-        if (ae.getSource() == btnTKSave){
-            int SaveConfirmation = JOptionPane.showConfirmDialog(null,
-                    "Do you want to save all the recent changes?", "Save Program Message Box",
-                    JOptionPane.YES_NO_OPTION);
-
-            if (SaveConfirmation == JOptionPane.YES_OPTION) {
-
-            }
-        }
-        if (ae.getSource() == btnTaskExit){
-            int TaskExitConfirmation = JOptionPane.showConfirmDialog(null,
-                    "Do you want to exit the program?", "Exit Program Message Box",
-                    JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION);
-
-            if (TaskExitConfirmation == JOptionPane.YES_OPTION) {
-                dispose();
-            }
-        }
+        TKframe.setVisible(false);
     }
 }
