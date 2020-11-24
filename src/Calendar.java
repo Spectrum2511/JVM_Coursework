@@ -1,6 +1,8 @@
 //initial inspiration
 //www.codejava.net = https://www.codejava.net/java-se/swing/how-to-use-jdatepicker-to-display-calendar-component
+
 import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import javax.swing.*;
@@ -17,17 +19,16 @@ public class Calendar extends JFrame implements ActionListener {
     //variables creation
     final JDatePickerImpl datePicker;
     UtilDateModel model = new UtilDateModel();
-    JTextField TextDisplay = new JTextField();
 
 
     public Calendar() {
 
         //creates the GUI title and sets the component layout
-        super("Calendar Testing");
+       // super("Calendar Testing");
         setLayout(new FlowLayout());
 
         //the model for the calendar is initialised
-        model.setDate(2020, 11, 19);
+        model.setDate(2020, 11, 1);
         model.setSelected(true);
 
         //this sets up the text date format for the user to see
@@ -48,11 +49,6 @@ public class Calendar extends JFrame implements ActionListener {
         ButtonOk.addActionListener(this);
         add(ButtonOk);
 
-        //creation of a textfield
-        TextDisplay.addActionListener(this);
-        TextDisplay.setColumns(25);
-        add(TextDisplay);
-
 
         //Creation of the JFrame
         setSize(700, 600);
@@ -72,15 +68,6 @@ public class Calendar extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
             Date selectedDate = (Date) datePicker.getModel().getValue();
             JOptionPane.showMessageDialog(null, "Project selected date is: " + selectedDate);
-
-
-        //retrieves the date from the datepicker calendar
-        //  Date selectedDate = (Date) datePicker.getModel().getValue();
-
-        //then displays it in a message box
-        //TextDisplay
-        //JOptionPane.showMessageDialog(null, "Project selected date is: " + selectedDate);
-        //model.getClass(); > try to use this function to call a textfield Abidon
 
     }
 }

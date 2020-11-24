@@ -1,8 +1,11 @@
+import classes.Project;
+import classes.Task;
+import classes.Team;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import classes.*;
 
 public class programHandler {
 
@@ -16,54 +19,9 @@ public class programHandler {
 
     public static void main(String args[]) throws IOException {
         projects = new ArrayList<>();
-        loadInstances();
-
-        //instance.CreateProject("project 1", "testing project", "2020-11-25", 80);
-        //currentProject.createTeam("Team A", "a a a a a a a", 1);
-        //currentProject.createTeam("Team B", " b b b b b b", 2);
-        //currentProject.addTask("A", 20, "null");
-        //currentProject.AssignTeamToTask("Team A", "A");
-        //currentProject.getTaskOfDescription("A").setTaskComplete();
-        //currentProject.addTask("B", 30, "A");
-        //currentProject.AssignTeamToTask("Team A", "B");
-        //currentProject.getTaskOfDescription("B").setTaskComplete();
-        //currentProject.addTask("C", 50, "A");
-        //currentProject.AssignTeamToTask("Team A", "C");
-        //currentProject.getTaskOfDescription("C").setTaskComplete();
-        //currentProject.addTask("D", 10, "B");
-        //currentProject.AssignTeamToTask("Team B", "D");
-        //currentProject.addTask("E", 100, "B,C");
-        //currentProject.AssignTeamToTask("Team B", "E");
-        //currentProject.addTask("F", 15, "D,E");
-        //currentProject.addTask("G", 20, "C");
-        //currentProject.addTask("H", 0, "F,G");
-        //System.out.println(instance.currentProject.getCurrentTask().getTaskDesc());
-        //critical_path path = new critical_path();
-        //path.calculate_critical_path();
-//
-        //instance.CreateProject("project 2", "testing project the second", "2020-11-25", 80);
-        //currentProject.createTeam("Team C", "c c c c c c", 1);
-        //currentProject.createTeam("Team D", " d d d d d d", 2);
-        //currentProject.addTask("A", 20, "null");
-        //currentProject.AssignTeamToTask("Team C", "A");
-        //currentProject.getTaskOfDescription("A").setTaskComplete();
-        //currentProject.addTask("B", 30, "A");
-        //currentProject.AssignTeamToTask("Team C", "B");
-        //currentProject.getTaskOfDescription("B").setTaskComplete();
-        //currentProject.addTask("C", 50, "A");
-        //currentProject.AssignTeamToTask("Team C", "C");
-        //currentProject.getTaskOfDescription("C").setTaskComplete();
-        //currentProject.addTask("D", 10, "B");
-        //currentProject.AssignTeamToTask("Team D", "D");
-        //currentProject.addTask("E", 100, "B,C");
-        //currentProject.AssignTeamToTask("Team D", "E");
-        //currentProject.addTask("H", 0, "D,E,C");
-        //System.out.println(instance.currentProject.getCurrentTask().getTaskDesc());
-        //critical_path crit = new critical_path();
-        //crit.calculate_critical_path();
-//
-        //saveInstances();
-        System.out.println("=========END TEST==========");
+        //loadInstances();
+        critical_path_improved path = new critical_path_improved();
+        Coursework cw = new Coursework();
     }
 
     public static programHandler getInstance( ) {
@@ -95,7 +53,9 @@ public class programHandler {
         return currentProject;
     }
 
-    public static void saveInstances() throws IOException {
+    public ArrayList<Project> getProjects() { return projects;}
+
+    public void saveInstances() throws IOException {
         FileWriter csvWriter = new FileWriter("Projects.csv");
         for (Project j : projects) {
             ArrayList<String> Proj_data = new ArrayList<>(Arrays.asList("p", j.getProjName(), j.getProjNote(), j.getStartDate().toString(),
@@ -107,7 +67,6 @@ public class programHandler {
                     e.printStackTrace();
                 }
             });
-            csvWriter.append(Proj_data.get(Proj_data.size() - 1));
             csvWriter.append("\n");
             for (int h = 0; h < j.getProjectTeams().size(); h++) {
                 Team t = j.getProjectTeams().get(h);
@@ -119,7 +78,6 @@ public class programHandler {
                         e.printStackTrace();
                     }
                 });
-                csvWriter.append(team_data.get(team_data.size()- 1));
                 csvWriter.append("\n");
             }
             for (int h = 0; h < j.getProjectTasks().size(); h++) {
@@ -133,7 +91,6 @@ public class programHandler {
                         e.printStackTrace();
                     }
                 });
-                csvWriter.append(task_data.get(task_data.size() - 1));
                 csvWriter.append("\n");
             }
         }

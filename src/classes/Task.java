@@ -17,6 +17,7 @@ public class Task {
     private boolean isCompleted = false;
     private Team assignedTeam;
     private String Predecessors;
+    public  int criticalCost = 0;
 
 
     public Task(String desc, Project p, int d, String addTo){
@@ -63,6 +64,18 @@ public class Task {
         TaskEndDate = TaskStartDate.plusDays(Duration);
     }
 
+    public boolean isDependant(Task t){
+        if (nextTask.contains(t)){
+            return true;
+        }
+        for(Task g: nextTask){
+            if (g.isDependant(t)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public String getTaskDesc(){
         return TaskDesc;
     }
@@ -70,6 +83,8 @@ public class Task {
     public LocalDate getTaskStartDate(){
         return TaskStartDate;
     }
+
+    public LocalDate getTaskEndDate() { return TaskEndDate;}
 
     public ArrayList<Task> getNextTasks(){
         return nextTask;

@@ -4,9 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Task_gui extends JFrame implements ActionListener {
-    JFrame f = new JFrame("Project");
+    JFrame TKframe = new JFrame("Task");
     JPanel tkpnl = new JPanel();
+    JPanel btnpnl = new JPanel();
+
     Font tkfnt = new Font("Times New Roman", Font.PLAIN, 18);
+
+    JButton btnTKSave = new JButton("Save Task");
+    JButton btnTaskExit = new JButton("Exit Task");
 
     JLabel lblName = new JLabel("Name");
     JLabel lblDescription = new JLabel("Task Description");
@@ -21,7 +26,7 @@ public class Task_gui extends JFrame implements ActionListener {
     // }
 
     public Task_gui(){
-        Task_gui();
+        Task();
     }
 
     private void Task(){
@@ -29,7 +34,13 @@ public class Task_gui extends JFrame implements ActionListener {
         lblDescription.setFont(tkfnt);
         lblDurations.setFont(tkfnt);
 
-        tkpnl.setLayout(new GridLayout(3,2, 1,1));
+        btnTKSave.setFont(tkfnt);
+        btnTaskExit.setFont(tkfnt);
+
+        btnpnl.add(btnTKSave);
+        btnpnl.add(btnTaskExit);
+
+        tkpnl.setLayout(new GridLayout(3,2, 15,15));
         tkpnl.add(lblName);
         tkpnl.add(txtName);
         tkpnl.add(lblDescription);
@@ -37,12 +48,13 @@ public class Task_gui extends JFrame implements ActionListener {
         tkpnl.add(lblDurations);
         tkpnl.add(txtDurations);
 
-        f.add(tkpnl);
+        TKframe.add(btnpnl, BorderLayout.NORTH);
+        TKframe.add(tkpnl, BorderLayout.CENTER);
 
-        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        f.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        f.pack();
-        f.setVisible(true);
+        TKframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        TKframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        TKframe.pack();
+        TKframe.setVisible(true);
 
     }
 
@@ -57,6 +69,24 @@ public class Task_gui extends JFrame implements ActionListener {
         }
         if (txtDurations.equals(ae.getActionCommand())){
 
+        }
+        if (ae.getSource() == btnTKSave){
+            int SaveConfirmation = JOptionPane.showConfirmDialog(null,
+                    "Do you want to save all the recent changes?", "Save Program Message Box",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (SaveConfirmation == JOptionPane.YES_OPTION) {
+
+            }
+        }
+        if (ae.getSource() == btnTaskExit){
+            int TaskExitConfirmation = JOptionPane.showConfirmDialog(null,
+                    "Do you want to exit the program?", "Exit Program Message Box",
+                    JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION);
+
+            if (TaskExitConfirmation == JOptionPane.YES_OPTION) {
+                dispose();
+            }
         }
     }
 }

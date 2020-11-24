@@ -4,47 +4,56 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
-//Remainder: Fix everyone little issue such as naming convention and major issue such as getting the objects to function as intended or and the gridlayout Abidon
+import classes.*;
 
+//Note to self
+//Calendar, gridlayout look, Gantt chart placement and actionperformed needs to be do.
+//cannot retrieve the calendar, mess around with gridbagconstraint to make Project, Team and Task GUI frame look more pleasing.
+//Gantt chart need to be added once it is created
+//actionperformed only works for toolbar variables not any other.
+//Fix this Abidon once you wake up
 public class Coursework extends JFrame implements ActionListener, ListSelectionListener {
+
+    public static programHandler data = programHandler.getInstance();
 
     MenuBar mb = new MenuBar(this);
 
     JFrame frame = new JFrame();
-    JPanel mainPNL = new JPanel();
-   // JPanel mainpnl = new JPanel();
+    JPanel westpnl = new JPanel(new GridBagLayout());
+    JPanel centerpnl = new JPanel(new GridBagLayout());
+    JPanel eastpnl = new JPanel(new GridBagLayout());
 
-    JToolBar toolBar = new JToolBar(JToolBar.HORIZONTAL);
+
+    JToolBar toolBar = new JToolBar();
     JButton btnNewProject = new JButton("New Project");
     JButton btnAddTeam = new JButton("Add Team");
-    JButton btnAssignPerson = new JButton("Assign Person");
+    JButton btnAssignPerson = new JButton("Assign Team to Task");
     JButton btnSave = new JButton("Save");
     JButton btnExit = new JButton("Exit");
 
-    String[] columnNames = {"Task Description", "Assigned to Team", "Starts:", "Ends", "Completed"};
-    Object[][] data = {{" ", " ", " ", " ", " "}};
-    JTable ProjectTable = new JTable(data, columnNames);
+
 
     Font LabelFnt = new Font("Times New Roman", Font.PLAIN, 16);
     JLabel lblProjectTasks = new JLabel();
     JLabel lblProjectTable = new JLabel();
-
-    DefaultListModel<String> TeamListNamesExample = new DefaultListModel<>();
-    JList<String> TeamList = new JList<>(TeamListNamesExample);
-
-    String ProjectExample[]={"JVM Coursework","Sentiment Analysis using LSTM","HCI In-Car Navigation"};
-    JComboBox cbxProjectList = new JComboBox(ProjectExample);
-
-    JTextArea txtTeamNames = new JTextArea();
-
-   // JScrollPane scrollPane = new JScrollPane();
+    JLabel lblTeamList = new JLabel();
+    JLabel lblTeamMembers = new JLabel();
+    JLabel lblGanttChart = new JLabel();
 
 
+    private static DefaultListModel<String> TeamListNames;
+    private static JList<String> TeamList;
 
-    public static void main(String[] args) {
-        Coursework cw = new Coursework();
-    }
+    private static ArrayList<String> ProjectBoxList = new ArrayList<>();
+    private static JComboBox cbxProjectList;
+
+    public static Object[][] tasktable;
+
+    JTextArea txtTeamNames = new JTextArea(30,30);
 
 
     public Coursework() {
@@ -54,53 +63,7 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
 
 
     private void JVM(){
-
-        //once you wake up in the afternoon fix the grid layout so that it dispays toolbar at the top and the rest is clean and organised
-        /*GridBagLayout grid = new GridBagLayout();
-        GridBagConstraints gbc = new GridBagConstraints();
-        setLayout(grid);
-        GridBagLayout layout = new GridBagLayout();
-        this.setLayout(layout);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        this.add(toolBar, gbc);
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        this.add(lblProjectTasks, gbc);
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        this.add(TeamList, gbc);
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        this.add(cbxProjectList, gbc);
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 2;
-        gbc.gridy = 4;
-        this.add(txtTeamNames, gbc);
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 3;
-        gbc.gridy = 3;
-        this.add(ProjectTable, gbc);*/
-
-        mainPNL.setLayout(new GridLayout(4,4, 2,2));
-        mainPNL.add(toolBar);
-        mainPNL.add(lblProjectTable);
-        mainPNL.add(lblProjectTasks);
-        mainPNL.add(ProjectTable);
-        mainPNL.add(TeamList);
-        mainPNL.add(txtTeamNames);
-        mainPNL.add(cbxProjectList);
-        //mainPNL.add(Gantt Chart);
-
+        load_gui();
         btnNewProject = mb.makeNavigationButton( "New Project","NewProject",
                 "Create a new project");
         toolBar.add(btnNewProject);
@@ -111,7 +74,7 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
         toolBar.add(btnAddTeam);
         toolBar.addSeparator();
 
-        btnAssignPerson = mb.makeNavigationButton( "Assign Person", "AssignPerson",
+        btnAssignPerson = mb.makeNavigationButton( "Assign Team to Task", "AssignTeam",
                 "Assign a person to a team");
         toolBar.add(btnAssignPerson);
         toolBar.addSeparator();
@@ -121,49 +84,177 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
         toolBar.add(btnSave);
         toolBar.addSeparator();
 
-        btnExit = mb.makeNavigationButton( "Exit Program","Exit",
+        btnExit = mb.makeNavigationButton( "Exit Program","MainExit",
                 "Close this program");
         toolBar.add(btnExit);
         toolBar.addSeparator();
 
-       //add(toolBar, BorderLayout.NORTH);
 
-        lblProjectTasks.setText("Project Tasks");
+        lblProjectTasks.setText("Projects:");
         lblProjectTasks.setFont(LabelFnt);
 
         lblProjectTable.setText("Project Table");
         lblProjectTable.setFont(LabelFnt);
-        //add(ProjectTasks, BorderLayout.WEST);
 
-        TeamListNamesExample.addElement("Team A");
-        TeamListNamesExample.addElement("Team B");
-        TeamListNamesExample.addElement("Team C");
-        TeamListNamesExample.addElement("Team D");
-        TeamList.setBounds(100,100, 100,100);
-        //add(TeamList, BorderLayout.NORTH);
+        lblGanttChart.setText("Time till completion (Gantt Chart)");
+        lblGanttChart.setFont(LabelFnt);
 
+        lblTeamList.setText("List of Teams");
+        lblTeamList.setFont(LabelFnt);
 
-        cbxProjectList.setBounds(50, 50,100,30);
+        lblTeamMembers.setText("Information:");
+        lblTeamMembers.setFont(LabelFnt);
+
+        JScrollPane listSP = new JScrollPane(TeamList);
+        listSP.setPreferredSize(new Dimension(200,200));
+
+        cbxProjectList.setSelectedIndex(-1);
 
         txtTeamNames.setEditable(false);
-        txtTeamNames.setBounds(10,30, 200,200);
 
 
-        //ProjectTable.setPreferredScrollableViewportSize(new Dimension(400, 100));
-      //  scrollPane.setViewportView(ProjectTable);
-        //setContentPane(grid);
-//get the table working by displaying the title because it is blank
-        ProjectTable.setCellSelectionEnabled(true);
-        ListSelectionModel select= ProjectTable.getSelectionModel();
-        select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        String[] columnNames = {"Task Description", "Assigned to Team", "Start", "End", "Completed"};
 
-        frame.add(mainPNL);
+        JTable ProjectTable = new JTable(tasktable, columnNames);
+        ProjectTable.setCellSelectionEnabled(false);
+        JScrollPane tableSP = new JScrollPane(ProjectTable);
+        tableSP.setPreferredSize(new Dimension(800,400));
+
+        //Explanation for gridlayout is on yt and the oracle website Abidon.
+        //read and explain it afterwards
+        //https://www.youtube.com/watch?v=ZipG38DJJK8
+        //https://docs.oracle.com/javase/tutorial/uiswing/layout/grid.html
+        //https://docs.oracle.com/javase/tutorial/uiswing/layout/gridbag.html
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(15,15, 15, 15);
+
+//left panel work
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weighty = 0;
+        gbc.weightx = 0;
+        gbc.gridwidth = 4;
+        gbc.fill = 4;
+        westpnl.add(lblProjectTasks, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weighty = 0;
+        gbc.weightx = 0;
+        gbc.gridwidth = 4;
+        gbc.fill = 4;
+        westpnl.add(cbxProjectList, gbc);
+
+
+
+//centerpanel work
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weighty = 0;
+        gbc.weightx = 0;
+        gbc.gridwidth = 4;
+        gbc.fill = 4;
+        centerpnl.add(lblProjectTable,gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weighty = 0;
+        gbc.weightx = 0;
+        gbc.gridwidth = 4;
+        gbc.fill = 4;
+        centerpnl.add(tableSP,gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weighty = 0;
+        gbc.weightx = 0;
+        gbc.gridwidth = 4;
+        gbc.fill = 4;
+        centerpnl.add(lblGanttChart,gbc);
+
+        //gantt chart comes here. add a scrollpane to it if it contains alot of data
+     /* gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weighty = 0;
+        gbc.weightx = 0;
+        gbc.gridwidth = 4;
+        gbc.fill = 4;
+        centerpnl.add(_____,gbc); //Gantt Chart variable goes here
+*/
+
+
+//eastpanel work
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weighty = 0;
+        gbc.weightx = 0;
+        gbc.gridwidth = 4;
+        gbc.fill = 4;
+        eastpnl.add(lblTeamList,gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weighty = 0;
+        gbc.weightx = 0;
+        gbc.gridwidth = 4;
+        gbc.fill = 4;
+        eastpnl.add(listSP,gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weighty = 0;
+        gbc.weightx = 0;
+        gbc.gridwidth = 4;
+        gbc.fill = 4;
+        eastpnl.add(lblTeamMembers,gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weighty = 0;
+        gbc.weightx = 0;
+        gbc.gridwidth = 4;
+        gbc.fill = 4;
+        eastpnl.add(txtTeamNames,gbc);
+
+        frame.add(toolBar, BorderLayout.NORTH);
+        frame.add(westpnl, BorderLayout.WEST);
+        frame.add(centerpnl, BorderLayout.CENTER);
+        frame.add(eastpnl, BorderLayout.EAST);
+
+
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setTitle("JVM Coursework");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
+    public static void load_gui(){
+        if (!data.getProjects().isEmpty()){
+            tasktable = new Object[data.getCurrentProject().getProjectTasks().size()][5];
+            ArrayList<Task> t = data.getCurrentProject().getProjectTasks();
+            for (int i = 0; i < data.getCurrentProject().getProjectTasks().size(); i++){
+                Task f = data.getCurrentProject().getProjectTasks().get(i);
+                Object[] arr = {f.getTaskDesc(), f.getAssignedTeam().getTeamName(), f.getTaskStartDate(), f.getTaskEndDate(), f.getIsCompleted()};
+                for (int j = 0; j < 5; j++){
+                    tasktable[i][j] = arr[j];
+                }
+            }
+            for (Project i: data.getProjects()){
+                ProjectBoxList.add(i.getProjName());
+            }
+            cbxProjectList= new JComboBox(ProjectBoxList.toArray());
 
+            TeamListNames = new DefaultListModel<>();
+            for (Team i: data.getCurrentProject().getProjectTeams()){
+                TeamListNames.addElement(i.getTeamName());
+            }
+            TeamList = new JList<>(TeamListNames);
+        }else{
+            data.CreateProject("new project", "example project", String.valueOf(LocalDate.now()),10);
+            data.getCurrentProject().addTask("Say hello to world",2, "null");
+            load_gui();
+        }
+    }
 
 
     @Override
@@ -171,21 +262,28 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
 
         if ("NewProject".equals(ae.getActionCommand())) {
             Project_gui pj = new Project_gui();
-            pj.setVisible(true);
         }
 
         if ("AddTask".equals(ae.getActionCommand())) {
             Task_gui tk = new Task_gui();
-            tk.setVisible(true);
         }
 
-        if ("AssignPerson".equals(ae.getActionCommand())) {
+        if ("AssignTeam".equals(ae.getActionCommand())) {
             Team_gui tm = new Team_gui();
-            tm.setVisible(true);
         }
 
         if ("Save".equals(ae.getActionCommand())) {
+            int SaveConfirmation = JOptionPane.showConfirmDialog(null,
+                    "Do you want to save all the recent changes?", "Save Program Message Box",
+                    JOptionPane.YES_NO_OPTION);
 
+            if (SaveConfirmation == JOptionPane.YES_OPTION) {
+                try {
+                    data.saveInstances();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         //https://www.javatpoint.com is used as inspiration for all
         //example of a list using a button command in the link above
@@ -204,23 +302,30 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
         //    String text = txtTeamNames.getText();
          //   String word[]=text.split("\\s");
          }
-        if ("Exit".equals(ae.getActionCommand())) {
-            System.exit(0);
+        if ("MainExit".equals(ae.getActionCommand())) {
+
+            int MainExitConfirmation = JOptionPane.showConfirmDialog(null,
+                    "Do you want to exit the program?", "Exit Program Message Box",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (MainExitConfirmation == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
         }
 
     }
 
+    //supposed to be a JTable actionlistener. see if it works otherwise call me.
     @Override
-
     public void valueChanged(ListSelectionEvent ae) {
 
-        String Data = null;
+      /*  String Data = null;
         int[] row = ProjectTable.getSelectedRows();
         int[] columns = ProjectTable.getSelectedColumns();
         for (int i = 0; i < row.length; i++) {
             for (int j = 0; j < columns.length; j++) {
                 Data = (String) ProjectTable.getValueAt(row[i], columns[j]);
             }
-        }
+        }*/
     }
 }
