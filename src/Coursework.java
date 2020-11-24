@@ -238,7 +238,9 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
                 ProjectBoxList.add(i.getProjName());
             }
             cbxProjectList= new JComboBox(ProjectBoxList.toArray());
-            cbxProjectList.setSelectedIndex(ProjectBoxList.indexOf(data.getCurrentProject()));
+            cbxProjectList.setSelectedIndex(data.getProjects().indexOf(data.getCurrentProject()));
+            cbxProjectList.addActionListener(this);
+            cbxProjectList.setActionCommand("ProjectFocusChanged");
 
             TeamListNames = new DefaultListModel<>();
             for (Team i: data.getCurrentProject().getProjectTeams()){
@@ -260,11 +262,20 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
     }
 
 
+
     @Override
     public void actionPerformed(ActionEvent ae) {
 
+        if ("ProjectFocusChanged".equals(ae.getActionCommand())){
+            JComboBox cb = (JComboBox)ae.getSource();
+            String projName = (String)cb.getSelectedItem();
+            data.setCurrentProject(data.getProjOfName(projName));
+            Coursework c = new Coursework();
+            frame.setVisible(false);
+        }
+
         if ("CrtTeam".equals(ae.getActionCommand())) {
-            Project_gui pj = new Project_gui(this);
+            CreateTeam_gui pj = new CreateTeam_gui(this);
         }
 
         if ("NewProject".equals(ae.getActionCommand())) {
@@ -276,7 +287,7 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
         }
 
         if ("AssignTeam".equals(ae.getActionCommand())) {
-            AssignTeam_gui tm = new AssignTeam_gui();
+            AssignTeam_gui tm = new AssignTeam_gui(this);
         }
 
         if ("Save".equals(ae.getActionCommand())) {

@@ -51,6 +51,10 @@ public class programHandler {
         return currentProject;
     }
 
+    public void setCurrentProject(Project p){
+        currentProject  = p;
+    }
+
     public ArrayList<Project> getProjects() { return projects;}
 
     public void saveInstances() throws IOException {
