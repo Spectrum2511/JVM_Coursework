@@ -10,7 +10,11 @@ t%E%project 1%100%Team B%B,C%
 t%F%project 1%15%null%D,E%
 t%G%project 1%20%null%C%
 t%H%project 1%0%null%F,G%
-p%proj 2%example proj%2021-01-01%100%
-g%TeamA%aaaa%1%
-g%teamb%bbbbb%2%
-t%hello world%proj 2%40%null%null%
+p%project 2%Coursework for AI%2020-12-25%100%
+g%Team alpha%Team that creates model%1%
+g%Team bravo%Team that creates datasets%2%
+t%A%project 2%30%Team alpha%null%
+t%B%project 2%60%null%A%
+t%C%project 2%30%Team alpha%A%
+t%D%project 2%10%null%A%
+t%E%project 2%20%null%B,C,D%

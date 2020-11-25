@@ -1,46 +1,41 @@
-package classes;
+package classes
 
-import java.util.ArrayList;
+import java.util.*
 
-public class Team {
-    private String TeamName;
-    private String TeamDescription;
-    private ArrayList<Task> teamTasks;
-    private int IDnumb;
+class Team {
+    private var TeamName: String? = null
+    var teamDescription: String? = null
+        private set
+    private var teamTasks: ArrayList<Task>? = null
+    var iD = 0
+        private set
 
-    public Team(String name, String desc, int n){
-        if (name.length() > 20){
-            System.out.print("ERROR: classes.Team name too long");
-        } else{
-            TeamName = name;
+    constructor(name: String, desc: String?, n: Int) {
+        if (name.length > 20) {
+            print("ERROR: classes.Team name too long")
+        } else {
+            TeamName = name
         }
-        TeamDescription = desc;
-        IDnumb = n;
-        teamTasks = new ArrayList<>();
+        teamDescription = desc
+        iD = n
+        teamTasks = ArrayList()
     }
 
-    public Team(String name){
-        if (name.equals("N/A") || (name.isEmpty())){
-            TeamName = "N/A";
-        }
-    }
-
-    public String getTeamName(){
-        if(TeamName.equals("N/A")){
-            return "null";
-        } else{
-            return TeamName;
+    constructor(name: String) {
+        if (name == "N/A" || name.isEmpty()) {
+            TeamName = "N/A"
         }
     }
 
-    public void assignTask(Task tk){
-        teamTasks.add(tk);
+    fun getTeamName(): String? {
+        return if (TeamName == "N/A") {
+            "null"
+        } else {
+            TeamName
+        }
     }
 
-    public String getTeamDescription() { return TeamDescription; }
-
-    public int getID() { return IDnumb; }
-
-    
-
+    fun assignTask(tk: Task) {
+        teamTasks!!.add(tk)
+    }
 }
