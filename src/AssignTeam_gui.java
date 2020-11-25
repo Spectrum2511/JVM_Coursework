@@ -15,7 +15,7 @@ public class AssignTeam_gui extends JFrame implements ActionListener {
     JButton btnTMSave = new JButton("Assign");
 
     JLabel lblTeamName = new JLabel("Team Name");
-    JLabel lblTaskName = new JLabel("Members Name");
+    JLabel lblTaskName = new JLabel("Task Description");
 
     JTextField txtTeamName = new JTextField();
     JTextArea txtTaskName = new JTextArea();
