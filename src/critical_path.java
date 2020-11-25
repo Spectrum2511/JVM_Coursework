@@ -5,15 +5,19 @@ import classes.Task;
 import java.util.ArrayList;
 
 public class critical_path {
-    programHandler handler = programHandler.getInstance();
-
-    ArrayList<Task> remaining = new ArrayList<>(handler.getCurrentProject().getProjectTasks());
-    ArrayList<Task> tasks = new ArrayList<>(handler.getCurrentProject().getProjectTasks());
-    Task sp = tasks.get(0);
-    Task ep = tasks.get(tasks.size() - 1);
     String output = "";
-
-    public void calculate_critical_path(){
+    ArrayList<Task> tasks;
+    ArrayList<Task> remaining;
+    Task sp;
+    Task ep;
+    public critical_path(programHandler h){
+        programHandler handler = h;
+        remaining = new ArrayList<>(handler.getCurrentProject().getProjectTasks());
+        tasks = new ArrayList<>(handler.getCurrentProject().getProjectTasks());
+        sp = tasks.get(0);
+        ep = tasks.get(tasks.size() - 1);
+    }
+    public String calculate_critical_path(){
         Task this_node = sp;
         while (!this_node.equals(ep)){
             int highest_cost = 0;
@@ -30,7 +34,7 @@ public class critical_path {
             output = output.concat(", ");
         }
         output = output.concat(this_node.getTaskDesc());
-        System.out.println(output);
+        return output;
     }
 
 

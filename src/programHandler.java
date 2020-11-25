@@ -15,10 +15,11 @@ public class programHandler {
     private static final String filepath="C:\\Users\\Sean Daly\\Google Drive\\Uni Stuff\\Year 3" +
             "\\Term 1\\COMP1815- JVM Programming Languages\\Coursework\\src\\classes";
 
+    public static String infoText;
     public static void main(String args[]) throws IOException {
         projects = new ArrayList<>();
+        infoText = "";
         loadInstances();
-        critical_path_improved path = new critical_path_improved();
         Coursework cw = new Coursework();
     }
 

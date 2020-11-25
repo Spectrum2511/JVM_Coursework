@@ -20,6 +20,8 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
 
     public static programHandler data = programHandler.getInstance();
 
+    critical_path path = new critical_path(data);
+
     MenuBar mb = new MenuBar(this);
 
     JFrame frame = new JFrame();
@@ -27,15 +29,13 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
     JPanel centerpnl = new JPanel(new GridBagLayout());
     JPanel eastpnl = new JPanel(new GridBagLayout());
 
-
     JToolBar toolBar = new JToolBar();
     JButton btnNewProject = new JButton("New Project");
     JButton btnAddTeam = new JButton("Add Team");
     JButton btnAssignPerson = new JButton("Assign Team to Task");
     JButton btnSave = new JButton("Save");
     JButton btnCreateTeam = new JButton("Create Team");
-
-
+    JButton btncritPath = new JButton("Critical Path");
 
     Font LabelFnt = new Font("Times New Roman", Font.PLAIN, 16);
     JLabel lblProjectTasks = new JLabel();
@@ -52,10 +52,10 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
     public static JComboBox cbxProjectList;
     JTable ProjectTable;
     public static Object[][] tasktable;
-    public String[] columnNames = {"Task Description", "Assigned to Team", "Start", "End", "Completed"};
+    public String[] columnNames = {"Task Description", "Assigned to Team", "Start", "End", "Completed", "Reliant on:"};
     public GridBagConstraints gbc;
 
-    JTextArea txtTeamNames = new JTextArea(30,30);
+    public JTextArea txtInfoArea = new JTextArea(30,30);
 
     JScrollPane tableSP;
 
@@ -66,6 +66,7 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
 
     private void JVM(){
         load_gui();
+
         btnNewProject = mb.makeNavigationButton( "New Project","NewProject",
                 "Create a new project");
         toolBar.add(btnNewProject);
@@ -91,6 +92,10 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
         toolBar.add(btnSave);
         toolBar.addSeparator();
 
+        btncritPath = mb.makeNavigationButton( "Critical Path","cp",
+                "Display the critical path of your project");
+        toolBar.add(btncritPath);
+
         lblProjectTasks.setText("Projects:");
         lblProjectTasks.setFont(LabelFnt);
 
@@ -111,7 +116,7 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
 
 
 
-        txtTeamNames.setEditable(false);
+        txtInfoArea.setEditable(false);
 
         //Explanation for gridlayout is on yt and the oracle website Abidon.
         //read and explain it afterwards
@@ -208,7 +213,7 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
         gbc.weightx = 0;
         gbc.gridwidth = 4;
         gbc.fill = 4;
-        eastpnl.add(txtTeamNames,gbc);
+        eastpnl.add(txtInfoArea,gbc);
 
         frame.add(toolBar, BorderLayout.NORTH);
         frame.add(westpnl, BorderLayout.WEST);
@@ -224,12 +229,12 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
 
     public void load_gui(){
         if (!data.getProjects().isEmpty()){
-            tasktable = new Object[data.getCurrentProject().getProjectTasks().size()][5];
+            tasktable = new Object[data.getCurrentProject().getProjectTasks().size()][6];
             ArrayList<Task> t = data.getCurrentProject().getProjectTasks();
             for (int i = 0; i < data.getCurrentProject().getProjectTasks().size(); i++){
                 Task f = data.getCurrentProject().getProjectTasks().get(i);
-                Object[] arr = {f.getTaskDesc(), f.getAssignedTeam().getTeamName(), f.getTaskStartDate(), f.getTaskEndDate(), f.getIsCompleted()};
-                for (int j = 0; j < 5; j++){
+                Object[] arr = {f.getTaskDesc(), f.getAssignedTeam().getTeamName(), f.getTaskStartDate(), f.getTaskEndDate(), f.getIsCompleted(), f.getPredecessors()};
+                for (int j = 0; j < 6; j++){
                     tasktable[i][j] = arr[j];
                 }
             }
@@ -254,6 +259,10 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
             tableSP = new JScrollPane(ProjectTable);
             tableSP.setPreferredSize(new Dimension(800,400));
             centerpnl.add(tableSP,gbc);
+
+            txtInfoArea.append(data.infoText);
+
+            appendInfo("Now showing: " +data.getCurrentProject().getProjName() + "\n");
         }else{
             data.CreateProject("new project", "example project", String.valueOf(LocalDate.now()),10);
             data.getCurrentProject().addTask("Say hello to world",2, "null");
@@ -261,11 +270,18 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
         }
     }
 
+    public void appendInfo(String i){
+        data.infoText.concat(i);
+        txtInfoArea.append(i);
+    }
 
 
     @Override
     public void actionPerformed(ActionEvent ae) {
 
+        if ("cp".equals(ae.getActionCommand())){
+            appendInfo("Critical Path: " + path.calculate_critical_path() + "\n");
+        }
         if ("ProjectFocusChanged".equals(ae.getActionCommand())){
             JComboBox cb = (JComboBox)ae.getSource();
             String projName = (String)cb.getSelectedItem();
@@ -316,7 +332,7 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
             //cbxProjectList.getItemAt(cbxProjectList.getSelectedIndex());
         }
 
-        if (txtTeamNames.equals(ae.getActionCommand())) {
+        if (txtInfoArea.equals(ae.getActionCommand())) {
         //    String text = txtTeamNames.getText();
          //   String word[]=text.split("\\s");
          }
