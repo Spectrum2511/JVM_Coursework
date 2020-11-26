@@ -86,7 +86,7 @@ public class Project_gui extends JFrame implements ActionListener {
    public void actionPerformed(ActionEvent e) {
        //none of these action command will work since it is only works with toolbar. ill try to solve this tomorrow morninig
        if ("ok".equals(e.getActionCommand())){
-           main.data.CreateProject(txtName.getText(),txtDescription.getText(), txtStartDate.getText(), Integer.parseInt(txtDurations.getText()));
+           main.data.CreateProject(txtName.getText(),txtDescription.getText(), txtStartDate.getText(), Integer.parseInt(txtDurations.getText()), true);
            Coursework c = new Coursework();
            main.frame.setVisible(false);
        }

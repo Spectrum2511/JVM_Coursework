@@ -10,6 +10,7 @@ t%E%project 1%100%Team B%B,C%
 t%F%project 1%15%null%D,E%
 t%G%project 1%20%null%C%
 t%H%project 1%0%null%F,G%
+t%Hello World%project 1%10%null%H%
 p%project 2%Coursework for AI%2020-12-25%100%
 g%Team alpha%Team that creates model%1%
 g%Team bravo%Team that creates datasets%2%
@@ -18,3 +19,7 @@ t%B%project 2%60%null%A%
 t%C%project 2%30%Team alpha%A%
 t%D%project 2%10%null%A%
 t%E%project 2%20%null%B,C,D%
+p%Hello World%showing off to Marcus%2020-12-01%200%
+g%Team Alpha%planning and sandwich making team%1%
+t%Plan steps%Hello World%10%Team Alpha%null%
+t%make a sandwich%Hello World%1%Team Alpha%Plan steps%

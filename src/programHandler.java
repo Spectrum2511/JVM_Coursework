@@ -12,8 +12,6 @@ public class programHandler {
     public static programHandler instance = new programHandler();
     private static ArrayList<Project> projects;
     private static Project currentProject;
-    private static final String filepath="C:\\Users\\Sean Daly\\Google Drive\\Uni Stuff\\Year 3" +
-            "\\Term 1\\COMP1815- JVM Programming Languages\\Coursework\\src\\classes";
 
     public static String infoText;
     public static void main(String args[]) throws IOException {
@@ -21,14 +19,17 @@ public class programHandler {
         infoText = "";
         loadInstances();
         Coursework cw = new Coursework();
+        //Task[] Sorted = path.criticalPath();
+        //for (int i = 0; i < Sorted.length; i++)
+        //    System.out.println(Sorted[i].getTaskDesc());
     }
 
     public static programHandler getInstance( ) {
         return instance;
     }
 
-    public void CreateProject(String name, String note, String startdate, int dur){
-        if (startdate.compareTo(String.valueOf(LocalDate.now())) < 0){
+    public void CreateProject(String name, String note, String startdate, int dur, boolean isCreate){
+        if (isCreate && startdate.compareTo(String.valueOf(LocalDate.now())) < 0){
             System.out.println("ERROR: starting date is earlier than current date!");
         } else{
             Project tmp = new Project(name, note, startdate, dur);
@@ -109,7 +110,7 @@ public class programHandler {
             while ((row = csvReader.readLine()) != null) {
                 String[] data = row.split("%");
                 if (data[0].equals("p")){
-                    instance.CreateProject(data[1],data[2],data[3],Integer.parseInt(data[4]));
+                    instance.CreateProject(data[1],data[2],data[3],Integer.parseInt(data[4]),false);
                 }
                 if (data[0].equals("g")){
                     instance.currentProject.createTeam(data[1], data[2], Integer.parseInt(data[3]));
@@ -120,7 +121,6 @@ public class programHandler {
                         instance.currentProject.AssignTeamToTask(data[4],data[1]);
                     }
                 }
-
             }
             csvReader.close();
         }

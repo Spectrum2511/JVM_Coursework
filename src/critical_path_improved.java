@@ -36,6 +36,7 @@ public class critical_path_improved {
                         }
                     }
                     task.criticalCost = critical+task.getDuration();
+                    System.out.println(task.criticalCost);
                     //set task as calculated an remove
                     completed.add(task);
                     it.remove();

@@ -16,7 +16,7 @@ import classes.*;
 //Gantt chart need to be added once it is created
 //actionperformed only works for toolbar variables not any other.
 //Fix this Abidon once you wake up
-public class Coursework extends JFrame implements ActionListener, ListSelectionListener {
+public class Coursework extends JFrame implements ActionListener{
 
     public static programHandler data = programHandler.getInstance();
 
@@ -264,7 +264,7 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
 
             appendInfo("Now showing: " +data.getCurrentProject().getProjName() + "\n");
         }else{
-            data.CreateProject("new project", "example project", String.valueOf(LocalDate.now()),10);
+            data.CreateProject("new project", "example project", String.valueOf(LocalDate.now()),10, true);
             data.getCurrentProject().addTask("Say hello to world",2, "null");
             load_gui();
         }
@@ -319,47 +319,5 @@ public class Coursework extends JFrame implements ActionListener, ListSelectionL
                 }
             }
         }
-        //https://www.javatpoint.com is used as inspiration for all
-        //example of a list using a button command in the link above
-        if (TeamList.getSelectedIndex() != -1) {
-         //   String data = " ";
-         //   data = "Programming language Selected: " + TeamList.getSelectedValue();
-            //label.setText(data);
-        }
-
-        //example
-        if (cbxProjectList.equals(ae.getActionCommand())) {
-            //cbxProjectList.getItemAt(cbxProjectList.getSelectedIndex());
-        }
-
-        if (txtInfoArea.equals(ae.getActionCommand())) {
-        //    String text = txtTeamNames.getText();
-         //   String word[]=text.split("\\s");
-         }
-        if ("MainExit".equals(ae.getActionCommand())) {
-
-            int MainExitConfirmation = JOptionPane.showConfirmDialog(null,
-                    "Do you want to exit the program?", "Exit Program Message Box",
-                    JOptionPane.YES_NO_OPTION);
-
-            if (MainExitConfirmation == JOptionPane.YES_OPTION) {
-                System.exit(0);
-            }
-        }
-
-    }
-
-    //supposed to be a JTable actionlistener. see if it works otherwise call me.
-    @Override
-    public void valueChanged(ListSelectionEvent ae) {
-
-      /*  String Data = null;
-        int[] row = ProjectTable.getSelectedRows();
-        int[] columns = ProjectTable.getSelectedColumns();
-        for (int i = 0; i < row.length; i++) {
-            for (int j = 0; j < columns.length; j++) {
-                Data = (String) ProjectTable.getValueAt(row[i], columns[j]);
-            }
-        }*/
     }
 }

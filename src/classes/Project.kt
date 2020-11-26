@@ -4,6 +4,8 @@ import java.io.Serializable
 import java.time.LocalDate
 import java.util.*
 
+
+
 class Project(private var projName: String, val projNote: String, startdate: String?, dur: Int) : Serializable {
     val projectTasks = ArrayList<Task>()
     val projectTeams = ArrayList<Team>()
@@ -43,7 +45,7 @@ class Project(private var projName: String, val projNote: String, startdate: Str
         val te = getTeamOfName(team)
         val tk = getTaskOfDescription(task)
         if (te == null || tk == null) {
-            println("ERROR: task or team does not exist")
+            println("ERROR: cannot find team or task")
         } else {
             tk.assignedTeam = te
             te.assignTask(tk)
