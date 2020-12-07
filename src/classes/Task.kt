@@ -21,6 +21,8 @@ class Task(
     var assignedTeam: Team
     @JvmField
     var criticalCost = 0
+    var danum = 0;
+
     fun checkPosition() {
         val otherJobs = assignedProj.projectTasks
         val thisIndex = otherJobs.indexOf(this)
@@ -66,6 +68,16 @@ class Task(
 
     fun getIsCompleted(): Boolean{
         return isCompleted;
+    }
+
+    fun getCritCost(): Int{
+        return criticalCost;
+    }
+    fun getdanum(): Int{
+        return danum;
+    }
+    fun setdanum(i: Int){
+        danum = i;
     }
 
     init {
