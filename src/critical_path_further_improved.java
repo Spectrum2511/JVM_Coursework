@@ -38,9 +38,25 @@ public class critical_path_further_improved {
         ArrayList<Task> unchecked = new ArrayList<>(priorityQueue);
         while(!unchecked.isEmpty()){
             Task CurrentNode = priorityQueue.get(0);
-            priorityQueue.remove(CurrentNode);
+            max = 0;
             for (Task item: CurrentNode.getNextTasks()){
-
+                if(!checked.contains(item)){
+                    item.setDanum(item.criticalCost + CurrentNode.criticalCost);
+                    Task largestNeighbour;
+                    if (item.getdanum() > max){
+                        largestNeighbour = item;
+                    }
+                }
+            }
+            unchecked.remove(CurrentNode);
+            checked.add(CurrentNode);
+            ArrayList<Task> temp = new ArrayList<>();
+            for (int i = 0; i < nodes.size(); i++){
+                int a = nodes.get(i).getdanum();
+                if (a > max){
+                    max = a;
+                    maxnode = nodes.get(i);
+                }
             }
         }
 

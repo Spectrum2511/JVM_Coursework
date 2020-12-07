@@ -4,8 +4,6 @@ import java.io.Serializable
 import java.time.LocalDate
 import java.util.*
 
-
-
 class Project(private var projName: String, val projNote: String, startdate: String?, dur: Int) : Serializable {
     val projectTasks = ArrayList<Task>()
     val projectTeams = ArrayList<Team>()

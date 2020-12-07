@@ -20,7 +20,7 @@ public class Coursework extends JFrame implements ActionListener{
 
     public static programHandler data = programHandler.getInstance();
 
-    critical_path_further_improved path = new critical_path_further_improved(data);
+    critical_path path = new critical_path(data);
 
     MenuBar mb = new MenuBar(this);
 
