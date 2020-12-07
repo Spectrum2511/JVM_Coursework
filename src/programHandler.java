@@ -19,9 +19,6 @@ public class programHandler {
         infoText = "";
         loadInstances();
         Coursework cw = new Coursework();
-        //Task[] Sorted = path.criticalPath();
-        //for (int i = 0; i < Sorted.length; i++)
-        //    System.out.println(Sorted[i].getTaskDesc());
     }
 
     public static programHandler getInstance( ) {

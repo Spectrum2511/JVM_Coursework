@@ -10,12 +10,6 @@ import java.util.ArrayList;
 
 import classes.*;
 
-//Note to self
-//Calendar, gridlayout look, Gantt chart placement and actionperformed needs to be do.
-//cannot retrieve the calendar, mess around with gridbagconstraint to make Project, Team and Task GUI frame look more pleasing.
-//Gantt chart need to be added once it is created
-//actionperformed only works for toolbar variables not any other.
-//Fix this Abidon once you wake up
 public class Coursework extends JFrame implements ActionListener{
 
     public static programHandler data = programHandler.getInstance();
@@ -118,8 +112,7 @@ public class Coursework extends JFrame implements ActionListener{
 
         txtInfoArea.setEditable(false);
 
-        //Explanation for gridlayout is on yt and the oracle website Abidon.
-        //read and explain it afterwards
+        //Explanation for gridlayout is on yt and the oracle website.
         //https://www.youtube.com/watch?v=ZipG38DJJK8
         //https://docs.oracle.com/javase/tutorial/uiswing/layout/grid.html
         //https://docs.oracle.com/javase/tutorial/uiswing/layout/gridbag.html
@@ -169,17 +162,6 @@ public class Coursework extends JFrame implements ActionListener{
         gbc.gridwidth = 4;
         gbc.fill = 4;
         centerpnl.add(lblGanttChart,gbc);
-
-        //gantt chart comes here. add a scrollpane to it if it contains alot of data
-     /* gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.weighty = 0;
-        gbc.weightx = 0;
-        gbc.gridwidth = 4;
-        gbc.fill = 4;
-        centerpnl.add(_____,gbc); //Gantt Chart variable goes here
-*/
-
 
 //eastpanel work
 

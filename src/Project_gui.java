@@ -13,7 +13,6 @@ public class Project_gui extends JFrame implements ActionListener {
     JPanel btnpanel;
     Font PJfnt;
 
-
     JLabel lblName;
     JLabel lblDescription;
     JLabel lblStartDate;
@@ -28,8 +27,6 @@ public class Project_gui extends JFrame implements ActionListener {
         main = m;
         Project();
     }
-
-
 
     private void Project(){
         PJframe = new JFrame("Project");
@@ -84,7 +81,6 @@ public class Project_gui extends JFrame implements ActionListener {
 
    @Override
    public void actionPerformed(ActionEvent e) {
-       //none of these action command will work since it is only works with toolbar. ill try to solve this tomorrow morninig
        if ("ok".equals(e.getActionCommand())){
            main.data.CreateProject(txtName.getText(),txtDescription.getText(), txtStartDate.getText(), Integer.parseInt(txtDurations.getText()), true);
            Coursework c = new Coursework();

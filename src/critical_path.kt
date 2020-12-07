@@ -2,6 +2,7 @@ import classes.Task
 import java.util.*
 
 class critical_path(h: programHandler) {
+
     val passer = h;
     lateinit var output: String;
     lateinit var tasks: ArrayList<Task>

@@ -22,9 +22,6 @@ public class CreateTeam_gui extends JFrame implements ActionListener {
     JTextField txtID = new JTextField();
     Coursework main;
 
-    // public static void main(String[] args) {
-    //    Task tk = new Task();
-    // }
 
     public CreateTeam_gui(Coursework m){
         Task();

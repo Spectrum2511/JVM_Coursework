@@ -22,10 +22,6 @@ public class Task_gui extends JFrame implements ActionListener {
     JTextField txtleads = new JTextField();
     Coursework main;
 
-    // public static void main(String[] args) {
-    //    Task tk = new Task();
-    // }
-
     public Task_gui(Coursework m){
         Task();
         main = m;

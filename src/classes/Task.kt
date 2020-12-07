@@ -79,7 +79,15 @@ class Task(
     fun setdanum(i: Int){
         danum = i;
     }
+    @JvmName("getTaskDesc1")
+    fun getTaskDesc(): String{
+        return taskDesc;
+    }
 
+    @JvmName("getDuration1")
+    fun getDuration(): Int{
+        return duration;
+    }
     init {
         assignedTeam = assignedProj.nonAssigned
         if (predecessors != "null") {

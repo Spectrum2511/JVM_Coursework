@@ -20,10 +20,6 @@ public class AssignTeam_gui extends JFrame implements ActionListener {
     JTextField txtTeamName = new JTextField();
     JTextArea txtTaskName = new JTextArea();
 
-    // public static void main(String[] args) {
-    //    Team tm = new Team();
-    // }
-
     public AssignTeam_gui(Coursework m){
         Team();
         main = m;
