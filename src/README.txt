@@ -11,3 +11,11 @@ Welcome to our coursework, in the following classes you will find the following 
 - critical_path: critical path algorithm in Krotlin, works with small projects, may not work with larger ones
 - crit_path_scala: critical path in scala, unfortunatley does not work, uncomment to see code
 - Projects.csv: The csv file holding project infomration, used for persistance
+
+PLEASE NOTE:
+-All dates must be in the format of YYYY-MM-DD, its how LocalDate likes it
+-The "task leads from" field in the task creation menu takes in a list of all the tasks that are going to file in to this new one. Simply list tem out seperated with a comma, no spaces needed (A,B,C etc.)
+    If its the first task in a project, just type "null"
+- Make sure to spell task and team names EXACTLY the same as shown
+
+Enjoy!
