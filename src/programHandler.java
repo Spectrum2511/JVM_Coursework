@@ -1,3 +1,4 @@
+//programHandler written in Java
 import classes.Project;
 import classes.Task;
 import classes.Team;
@@ -15,7 +16,7 @@ public class programHandler {
 
     public static String infoText;
     public static void main(String args[]) throws IOException {
-        projects = new ArrayList<>();
+        projects = new ArrayList<>(); //instance of the projects array
         infoText = "";
         loadInstances();
         Coursework cw = new Coursework();
@@ -23,8 +24,9 @@ public class programHandler {
 
     public static programHandler getInstance( ) {
         return instance;
-    }
+    } //singleton design pattern for the class
 
+    //method for creating projects
     public void CreateProject(String name, String note, String startdate, int dur, boolean isCreate){
         if (isCreate && startdate.compareTo(String.valueOf(LocalDate.now())) < 0){
             System.out.println("ERROR: starting date is earlier than current date!");
@@ -34,7 +36,7 @@ public class programHandler {
             currentProject = tmp;
         }
     }
-
+    //find project by name
     public Project getProjOfName(String name){
         Project a = null;
         for (Project project : projects) {
@@ -45,23 +47,24 @@ public class programHandler {
         }
         return a;
     }
-
+    //returns current project we are focusing on
     public Project getCurrentProject(){
         return currentProject;
     }
-
+    //sets current project we are focusing on
     public void setCurrentProject(Project p){
         currentProject  = p;
     }
 
     public ArrayList<Project> getProjects() { return projects;}
 
+    //method for saving all projects and data
     public void saveInstances() throws IOException {
         FileWriter csvWriter = new FileWriter("Projects.csv");
         for (Project j : projects) {
             ArrayList<String> Proj_data = new ArrayList<>(Arrays.asList("p", j.getProjName(), j.getProjNote(), j.getStartDate().toString(),
                     String.valueOf(j.getProjDuration())));
-            Proj_data.forEach((c)->{
+            Proj_data.forEach((c)->{ //Ooo look, lambdas!
                 try {
                     csvWriter.append(c).append("%");
                 } catch (IOException e) {
@@ -99,6 +102,7 @@ public class programHandler {
         csvWriter.close();
     }
 
+    //method for loading instances and data
     public static void loadInstances() throws IOException {
         File csvFile = new File("Projects.csv");
         if (csvFile.isFile()) {

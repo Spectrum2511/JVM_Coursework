@@ -1,3 +1,5 @@
+//Class Project written in Krotlin
+
 package classes
 
 import java.io.Serializable
@@ -5,14 +7,15 @@ import java.time.LocalDate
 import java.util.*
 
 class Project(private var projName: String, val projNote: String, startdate: String?, dur: Int) : Serializable {
-    val projectTasks = ArrayList<Task>()
-    val projectTeams = ArrayList<Team>()
+    val projectTasks = ArrayList<Task>() //array for holding tasks
+    val projectTeams = ArrayList<Team>() //array for holding teams
     val startDate: LocalDate
     val projDuration: Int
     var currentTask: Task? = null
         private set
     @JvmField
-    var nonAssigned = Team("N/A")
+    var nonAssigned = Team("N/A") //non-assigned team gets created on instantiation
+    //method for adding tasks
     fun addTask(desc: String, d: Int, addTo: String) {
         val tmp = Task(desc, this, d, addTo)
         projectTasks.add(tmp)
@@ -33,12 +36,12 @@ class Project(private var projName: String, val projNote: String, startdate: Str
             }
         }
     }
-
+    //team create method
     fun createTeam(name: String, desc: String, n: Int) {
         val tmp = Team(name, desc, n)
         projectTeams.add(tmp)
     }
-
+    //method for assigning tasks to teams
     fun AssignTeamToTask(team: String, task: String) {
         val te = getTeamOfName(team)
         val tk = getTaskOfDescription(task)
@@ -49,7 +52,7 @@ class Project(private var projName: String, val projNote: String, startdate: Str
             te.assignTask(tk)
         }
     }
-
+    //find team by name
     fun getTeamOfName(name: String): Team? {
         var a: Team? = null
         for (projectTeam in projectTeams) {
@@ -61,6 +64,7 @@ class Project(private var projName: String, val projNote: String, startdate: Str
         return a
     }
 
+    //task finder by name
     fun getTaskOfDescription(description: String): Task? {
         var a: Task? = null
         for (projectTask in projectTasks) {
@@ -72,6 +76,7 @@ class Project(private var projName: String, val projNote: String, startdate: Str
         return a
     }
 
+    //project name getter
     fun getProjName(): String {
         return projName
     } //returns project name

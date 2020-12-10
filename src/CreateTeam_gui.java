@@ -1,9 +1,11 @@
+//createTeam written in Java
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CreateTeam_gui extends JFrame implements ActionListener {
+    //instances
     JFrame CTframe = new JFrame("Create Team");
     JPanel tkpnl = new JPanel();
     JPanel btnpnl = new JPanel();
@@ -29,6 +31,7 @@ public class CreateTeam_gui extends JFrame implements ActionListener {
     }
 
     private void Task(){
+        //label setup
         lblName.setFont(tkfnt);
         lblDescription.setFont(tkfnt);
         lblID.setFont(tkfnt);
@@ -59,6 +62,7 @@ public class CreateTeam_gui extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //if ook clicked: pass info to main window and reset to show new info
         if ("ok".equals(e.getActionCommand())){
             main.data.getCurrentProject().createTeam(txtName.getText(), txtDescription.getText() ,Integer.parseInt(txtID.getText()));
             Coursework c = new Coursework();

@@ -1,3 +1,4 @@
+//Krotlin Critical Path method
 import classes.Task
 import java.util.*
 
@@ -15,6 +16,7 @@ class critical_path(h: programHandler) {
         sp = tasks[0]
         ep = tasks[tasks.size - 1]
         output = "";
+        //find the neighbour with largest duratio and set it as the current node
         var this_node: Task? = sp
         while (this_node != ep) {
             var highest_cost = 0

@@ -1,11 +1,14 @@
+//assignTeam written in Java
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AssignTeam_gui extends JFrame implements ActionListener {
+    //link to main window
     Coursework main;
 
+    //panel components
     JFrame ATframe = new JFrame("Team Assignment");
     JPanel tmpnl = new JPanel();
     JPanel btnpnl = new JPanel();
@@ -26,6 +29,7 @@ public class AssignTeam_gui extends JFrame implements ActionListener {
     }
 
     private void Team(){
+        //setting labels and components
         lblTeamName.setFont(tmfnt);
         lblTaskName.setFont(tmfnt);
         txtTeamName.setFont(tmfnt);
@@ -56,6 +60,7 @@ public class AssignTeam_gui extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //if ok is pressed: pass data and reset the main window to show new info
         if ("ok".equals(e.getActionCommand())){
             main.data.getCurrentProject().AssignTeamToTask(txtTeamName.getText(), txtTaskName.getText());
             Coursework c = new Coursework();

@@ -1,3 +1,5 @@
+//Coursework written in Java
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -209,7 +211,7 @@ public class Coursework extends JFrame implements ActionListener{
         frame.setVisible(true);
     }
 
-    public void load_gui(){
+    public void load_gui(){ //load_gui handles the data and feeds it into the components to display
         if (!data.getProjects().isEmpty()){
             tasktable = new Object[data.getCurrentProject().getProjectTasks().size()][6];
             ArrayList<Task> t = data.getCurrentProject().getProjectTasks();

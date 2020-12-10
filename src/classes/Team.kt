@@ -1,3 +1,4 @@
+//Class team written in Krotlin
 package classes
 
 import java.util.*
@@ -6,7 +7,7 @@ class Team {
     private var TeamName: String? = null
     var teamDescription: String? = null
         private set
-    private var teamTasks: ArrayList<Task>? = null
+    private var teamTasks: ArrayList<Task>? = null //array holding all tasks assigned to this team
     var iD = 0
         private set
 
@@ -21,6 +22,7 @@ class Team {
         teamTasks = ArrayList()
     }
 
+    //if only the name is passed to the constructor and is of value "N/A", the empty or not assigned team is created
     constructor(name: String) {
         if (name == "N/A" || name.isEmpty()) {
             TeamName = "N/A"
